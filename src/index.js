@@ -1,1 +1,4 @@
-console.log("hello world");
+import showDialog from "./render";
+
+    
+showDialog();

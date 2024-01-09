@@ -1,0 +1,1 @@
+(()=>{"use strict";!function(){const t=document.getElementById("button-add-task"),e=document.getElementById("task-dialog-box");t.addEventListener("click",(()=>{e.showModal()}))}()})();
