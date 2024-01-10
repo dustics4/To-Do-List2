@@ -25,14 +25,26 @@
     </dialog>
 
     <div class="container">
+        <!-- Folder content - will be mainly for the Folders -->
         <div class="folder">
-
+            <div class="folder-header">
+                <h1>Folders</h1>
+            </div>
+            <div class="folder-body"></div>
+            <div class="folder-footer">
+                <button id="button-add-folder" type="click">+</button>
+            </div>
         </div>
 
+        <!-- To Do content - will be mainly for the to-do's -->
         <div class="to-do">
-            <div class="to-do-content">
+            <div class="to-do-header">
                 <h1>To-Do's</h1>
-                <div class="add-task">
+            </div>
+            <div class="to-do-content">
+                <div class="to-do-body"></div>
+                
+                <div class="add-to-do">
                     <button id="button-add-task" type="click">+</button>
                     <button id="button-completed-to-do" type="click">Clear completed To-Do's</button>
                 </div>
