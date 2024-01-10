@@ -4,3 +4,5 @@ class Storage {
         this.tasks =[];
     }
 }
+
+export{Storage};
