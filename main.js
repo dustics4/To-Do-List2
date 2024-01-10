@@ -1,1 +1,1 @@
-(()=>{"use strict";!function(){const t=document.getElementById("button-add-task"),e=document.getElementById("task-dialog-box");t.addEventListener("click",(()=>{e.showModal()}))}()})();
+(()=>{"use strict";!function(){const t=document.getElementById("button-add-task"),e=document.getElementById("task-dialog-box"),n=document.getElementById("buttonClose");t.addEventListener("click",(()=>{e.showModal()})),n.addEventListener("click",(t=>{t.preventDefault(),e.close()}))}()})();
