@@ -6,6 +6,18 @@
     <title>To Do List</title>
 </head>
 <body>
+
+    <!-- Dialog box for the folder, when pressed the add button -->
+    <dialog id="folder-dialog-box">
+        <form method="dialog">
+            <input type="text" name="folder" id="folder-name" required placeholder="Folder name">
+            <div id="two-buttons">
+                <button id="folder-buttonSubmit" value="default" type="button">Submit</button>
+                <button id="buttonClose" formmethod="dialog">Close</button>
+            </div> 
+        </form>
+    </dialog>
+
     <!-- Dialog box for to-do list when pressed add button -->
     <dialog id="task-dialog-box">
         <form method="dialog">
@@ -20,17 +32,6 @@
               </select>
             <div id="two-buttons">
                 <button id="buttonSubmit" value="default" type="button">Submit</button>
-                <button id="buttonClose" formmethod="dialog">Close</button>
-            </div> 
-        </form>
-    </dialog>
-
-    <!-- Dialog box for the folder, when pressed the add button -->
-    <dialog id="folder-dialog-box">
-        <form method="dialog">
-            <input type="text" name="folder" id="folder-name" required placeholder="Folder name">
-            <div id="two-buttons">
-                <button id="folder-buttonSubmit" value="default" type="button">Submit</button>
                 <button id="buttonClose" formmethod="dialog">Close</button>
             </div> 
         </form>
