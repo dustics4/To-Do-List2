@@ -1,3 +1,3 @@
-import showDialog from "./buttons";
+import {showDialog} from "./buttons";
 
 showDialog();
