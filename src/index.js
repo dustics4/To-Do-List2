@@ -1,4 +1,4 @@
-import showDialog from "./render";
+import showDialog from "./buttons";
 
     
 showDialog();
