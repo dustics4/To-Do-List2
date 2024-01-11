@@ -1,16 +1,20 @@
-class Folder {
-    constructor(name){
-        this.name = name;
+//function that takes takes details and returns them
+
+const tasks = (title, description, date, priority) => {
+    return {
+        title,
+        description,
+        date,
+        priority,
     }
 }
 
-class Tasks {
-    constructor(name,date,priority,description){
-        this.name = name;
-        this.date = date;
-        this.priority = priority;
-        this.description = description;
-    }
+const folder = () => {
+
 }
 
-export{Folder , Tasks};
+const projects = () => {
+
+}
+
+export{folder , tasks , projects};
