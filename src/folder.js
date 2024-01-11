@@ -21,10 +21,31 @@ const folder = (title) => {
     }
 
     //function removefolders
+
+    //function to get tasks
+    function getTasks(){
+        return tasks;
+    }
+
+    //get active - to return active
+
+    //update active - active = !active
+
+    //return all functions
 }
 
-const projects = () => {
+const folders = () => {
+    let foldersList = [];
 
+    //create folders append function
+    //push folders(title), folders list
+
+    //remove folders (user filter), folders list
+
+    //get foldersList - return foldersLIst
+
+    //getfolder , return folderslist.find projectitle
+    
 }
 
-export{folder , tasks , projects};
+export{folder , tasks , folders};
