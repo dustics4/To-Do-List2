@@ -9,8 +9,9 @@ const tasks = (title, description, date, priority) => {
     }
 }
 
-const folder = () => {
-
+const folder = (title) => {
+    //empty array to store tasks in the folder
+    let tasks = [];
 }
 
 const projects = () => {
