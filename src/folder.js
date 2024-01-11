@@ -15,10 +15,12 @@ const folder = (title) => {
     let active = false;
 
     //function to add the to-do tasks into an array, to store it
-    function tasksAppend(title, description, date, priority){
+    function folderAppend(title, description, date, priority){
         const newTask = task(title,description,date,priority);
         tasks.push(newTask);
     }
+
+    //function removefolders
 }
 
 const projects = () => {
