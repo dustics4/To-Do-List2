@@ -49,13 +49,21 @@ const folders = () => {
 
     //create folders append function
     //push folders(title), folders list
+    function projectsAppend(title){
+        const newProject = folder(title);
+        foldersList.push(newProject);
+    }
 
     //remove folders (user filter), folders list
 
     //get foldersList - return foldersLIst
-
+    function getFolderList(){
+        return foldersList;
+    }
     //getfolder , return folderslist.find projectitle
-    
+    function getFolder(title){
+        return foldersList.find(project => project.getActive() === true);
+    }
 }
 
 export{folder , tasks , folders};
