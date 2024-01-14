@@ -100,7 +100,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   padding: 10px 20px;
-  border-style: none;
+  border-style:solid;
 }
 
 button:hover {
