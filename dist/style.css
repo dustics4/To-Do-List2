@@ -46,6 +46,8 @@
     display: flex;
     align-items: center;
     justify-content: start;
+    font-weight: 600;
+    padding-left: 50px;
   }
 
 
@@ -68,7 +70,7 @@
   }
   .body-content{
     height: 82vh;
-
+  
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -78,6 +80,7 @@
 
   /*----- Folder ------ */
 .folder {
+  padding-top: 20px;
   width: 300px;
   background-color: var(--secondary-light);
 }
@@ -88,6 +91,7 @@
 
   /*----- To-Do ------ */
 .to-do-container {
+  padding-top: 20px;
   padding-left: 100px;
 }
 
