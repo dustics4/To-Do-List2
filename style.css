@@ -10,7 +10,7 @@
   
   html {
     /* footer support */
-    min-height: 100%;
+    min-height: 100vh;
   }
   
   body {
@@ -21,6 +21,19 @@
     padding: 0;
     margin: 0;
   }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: var(--primary-dark);
+    color: white;
+    margin: 0;
+    padding:0;
+  }
+  
+
    /*----- Heading ------ */
   .heading {
     background-color: var(--primary-dark);
@@ -35,6 +48,8 @@
     justify-content: center;
   }
 
+
+
   /*----- Dialog boxes ------ */
   #folder-dialog-box {
     justify-content: center;
@@ -45,4 +60,55 @@
 
   }
 
+
+
+  /*----- Body Content ------ */
+  .container {
+    height: 100vh;
+  }
+  .body-content{
+    height: 82vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+  }
+
+
+
+  /*----- Folder ------ */
+.folder {
+  width: 300px;
+  background-color: var(--secondary-light);
+}
+
+.folder-header {
+  padding-left: 50px;
+}
+
+  /*----- To-Do ------ */
+.to-do-container {
+  padding-left: 100px;
+}
+
+  /*----- button ------ */
+button {
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-style: none;
+}
+
+button:hover {
+  background-color: #8e8e8e;
+}
+
+#button-add-folder {
+  margin-left: 50px;
+  background-color:  var(--secondary-light);
+}
+
+#button-add-folder:hover {
+  background-color: #8e8e8e;
+}
 
