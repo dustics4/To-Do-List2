@@ -24,7 +24,8 @@
         <form method="dialog">
             <h1>New Task </h1>
             <input type="text" name="task" id="task-name" required placeholder="Task name">
-            <input type="text" name="date" id="date" required placeholder="Select Date">
+            <input type="text" name="description" id="description" required placeholder="Description">
+            <input type="datetime-local" class="form-control" id="oldtaskDueDate" required/>
             <label for="priotity-label">Priority : </label>
             <select id="priority-type" name="priority">
                 <option value="priority-low">Low</option>
@@ -54,7 +55,7 @@
                 </div>
                 <div class="folder-body"></div>
                 <div class="folder-footer">
-                    <button id="button-add-folder" type="click">+</button>
+                    <button id="button-add-folder" type="click">+ Add Folder</button>
                 </div>
             </div>
 
@@ -65,7 +66,8 @@
                 </div>
                 <div class="to-do-content">
                     <div class="to-do-body"></div>
-                    
+  <!-- To Do content - will be mainly for the to-do's -->
+            <div class="to-do">                   
                     <div class="add-to-do">
                         <button id="button-add-task" type="click">+</button>
                         <button id="button-completed-to-do" type="click">Clear completed To-Do's</button>

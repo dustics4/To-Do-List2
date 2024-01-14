@@ -1,6 +1,8 @@
-//function that takes takes details and returns them
+import { format, compareAsc } from "date-fns";
 
+//function that takes takes details and returns them
 const tasks = (title, description, date, priority) => {
+    
     return {
         title,
         description,
