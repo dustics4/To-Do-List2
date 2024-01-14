@@ -30,10 +30,18 @@ const folder = (title) => {
     }
 
     //get active - to return active
-
+    function getActive(){
+        return active
+    }
     //update active - active = !active
 
     //return all functions
+
+    return {
+        folderAppend,
+        getTasks,
+        getActive
+    }
 }
 
 const folders = () => {
