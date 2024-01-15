@@ -3,6 +3,10 @@ import { folders } from './folder.js';
 
 const dom = (() => {
 
+    function addProject(){
+        const title = document.getElementById("folder-name");
+
+    }
 })
 
 export{dom};
