@@ -66,4 +66,4 @@ const projects = () => {
     }
 }
 
-export{folder , tasks , folders};
+export{folder , tasks , projects};

@@ -1,11 +1,11 @@
 import DOMPurify from 'dompurify';
-import { folders } from './folder.js';
+import { projects } from './folder.js';
 
 const dom = (() => {
 
     function addProject(){
         const title = document.getElementById("folder-name");
-        folders.foldersAppend()
+        projects.projectsAppend(title)
     }
 })
 
