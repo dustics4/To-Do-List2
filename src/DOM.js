@@ -5,7 +5,7 @@ const dom = (() => {
 
     function addProject(){
         const title = document.getElementById("folder-name");
-
+        folders.foldersAppend()
     }
 })
 

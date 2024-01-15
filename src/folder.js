@@ -44,25 +44,25 @@ const folder = (title) => {
     }
 }
 
-const folders = () => {
-    let foldersList = [];
+const projects = () => {
+    let projectList = [];
 
     //create folders append function
     //push folders(title), folders list
     function projectsAppend(title){
         const newProject = folder(title);
-        foldersList.push(newProject);
+        projectList.push(newProject);
     }
 
     //remove folders (user filter), folders list
 
     //get foldersList - return foldersLIst
-    function getFolderList(){
-        return foldersList;
+    function getProjectList(){
+        return projectList;
     }
     //getfolder , return folderslist.find projectitle
-    function getFolder(title){
-        return foldersList.find(project => project.getActive() === true);
+    function getProject(title){
+        return projectList.find(project => project.getActive() === true);
     }
 }
 
