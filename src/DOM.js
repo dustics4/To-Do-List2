@@ -1,4 +1,3 @@
-import DOMPurify from 'dompurify';
 import { projects } from './folder.js';
 
 const dom = (() => {
@@ -10,7 +9,6 @@ const dom = (() => {
         return title;
     }
 
-    addProject();
 })
 
 export{dom};

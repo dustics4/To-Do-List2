@@ -11,9 +11,9 @@ function showDialog() {
     })
 
     //button to open the dialog box for To-Do's
-    buttonAddTask.addEventListener('click', () => {
-        taskDialogBox.showModal();
-    })
+    //buttonAddTask.addEventListener('click', () => {
+       // taskDialogBox.showModal();
+    //})
 
     //button to Close the dialog box for To-Do's
     buttonClose.addEventListener("click", () => {
