@@ -16,7 +16,7 @@
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   dom: () => (/* binding */ dom)\n/* harmony export */ });\n/* harmony import */ var _folder_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./folder.js */ \"./src/folder.js\");\n\n\nconst dom = (() => {\n\n    function addProject(){\n        const title = document.getElementById(\"folder-name\");\n        _folder_js__WEBPACK_IMPORTED_MODULE_0__.projects.projectsAppend(title);\n        console.log(title);\n        return title;\n    }\n\n})\n\n\n\n//# sourceURL=webpack://to-do-list2/./src/DOM.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   dom: () => (/* binding */ dom)\n/* harmony export */ });\n/* harmony import */ var _folder_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./folder.js */ \"./src/folder.js\");\n\n\nconst dom = (() => {\n    console.log(\"project\");\n    function addProject(){\n        const title = document.getElementById(\"folder-name\");\n        _folder_js__WEBPACK_IMPORTED_MODULE_0__.projects.projectsAppend(title);\n        console.log(title);\n        return title;\n    }\n\n})\n\n\n\n//# sourceURL=webpack://to-do-list2/./src/DOM.js?");
 
 /***/ }),
 
