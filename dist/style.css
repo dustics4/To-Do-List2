@@ -91,7 +91,12 @@
 
   /*----- To Do section ------ */
 
-  
+  .to-do-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
   /*----- To-Do ------ */
 .to-do-container {
