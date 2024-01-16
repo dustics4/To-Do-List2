@@ -9,6 +9,10 @@ const dom = (() => {
         return title;
     }
 
+    function createProject(){
+        
+    }
+
 })
 
 export{dom};
