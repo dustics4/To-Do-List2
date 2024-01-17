@@ -31,9 +31,12 @@ const buttonSubmit = (() => {
     function folderSubmit(){
         const folderSubmitButton = document.getElementById("button-add-folder");
         
+        folderSubmitButton.addEventListener("Click", () => {
+
+        });
     }
 
 })
 
 
-export{showDialog};
+export{showDialog, buttonSubmit};
