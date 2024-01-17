@@ -4,7 +4,7 @@ function showDialog() {
     const buttonClose = document.getElementById("buttonClose");
     const folderButtonAdd = document.getElementById("button-add-folder")
     const folderDialogBox = document.getElementById("folder-dialog-box");
-
+    
     //Button to open the dialog box for Folder
     folderButtonAdd.addEventListener('click',  () => {
         folderDialogBox.showModal();
@@ -22,6 +22,16 @@ function showDialog() {
         //We can import this function when rendering content from a different JS file
     })
 }
+
+const buttonSubmit = (() => {
+   
+
+    function folderSubmit(){
+        const folderSubmitButton = document.getElementById("button-add-folder");
+        
+    }
+
+})
 
 
 export{showDialog};
