@@ -24,6 +24,10 @@ const folder = (title) => {
 
     //function removefolders
 
+    function removeTasks(removeTasks){
+        tasks.filter(task => task !=removeTasks);
+    }
+
     //function to get tasks
     function getTasks(){
         return tasks;
