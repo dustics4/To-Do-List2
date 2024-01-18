@@ -1,7 +1,7 @@
 import { format, compareAsc } from "date-fns";
 
 //function that takes takes details and returns them
-const tasks = (title, description, date, priority) => {
+const task = (title, description, date, priority) => {
     
     return {
         title,
@@ -23,10 +23,9 @@ const folder = (title) => {
     }
 
     //function removefolders
+    //remove all items from array
+    //remove dom elements showing on page
 
-    function removeTasks(removeTasks){
-        tasks.filter(task => task !=removeTasks);
-    }
 
     //function to get tasks
     function getTasks(){
