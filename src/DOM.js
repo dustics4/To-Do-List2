@@ -1,4 +1,4 @@
-import { projects } from './folder.js';
+import Project, { projects } from './folder.js';
 
 const dom = (() => {
     //console log to check if dom is working
@@ -6,6 +6,7 @@ const dom = (() => {
     //function to take the input from dialog and store it into the projects array list
     //this is done in the folder.js file
     function addProject(){
+        let project = new Project;
         const title = document.getElementById("folder-name");
         projects.projectsAppend(title);
         console.log(title);
