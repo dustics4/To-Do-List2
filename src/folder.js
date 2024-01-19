@@ -17,6 +17,7 @@ export default class Project {
 //tasks constructor will store task name and due date
 
 //create projects file, where the tasks and folders will be stored
+//The projects file will be the main one where all the information will be store together
 
 export{};
 //function that takes takes details and returns them
