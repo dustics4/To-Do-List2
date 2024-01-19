@@ -1,6 +1,8 @@
 import { format, compareAsc } from "date-fns";
 
-
+//Create a class for folder here
+//Folder class will store all functions to do with folder
+//
 
 
 export{};
