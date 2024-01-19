@@ -8,7 +8,7 @@ const dom = (() => {
     function addProject(){
         let project = new Project;
         const title = document.getElementById("folder-name");
-        projects.projectsAppend(title);
+        project.projectsAppend(title);
         console.log(title);
         return title;
         

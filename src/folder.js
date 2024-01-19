@@ -6,6 +6,12 @@ export default class Project {
         this.title = title;
         this.tasks = [];
     }
+
+    folderTitleAppend(){
+        const newTitle = this.title;
+        newTitle.push(this.title);
+        console.log(newTitle);
+    }
 }
 
 //Create a class for folder here
