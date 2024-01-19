@@ -10,6 +10,8 @@ const dom = (() => {
         projects.projectsAppend(title);
         console.log(title);
         return title;
+        
+        console.log()
     }
 
     //create the project, takes users input, takes the title, stores it into a div

@@ -1,7 +1,7 @@
 import { format, compareAsc } from "date-fns";
 
 //function that takes takes details and returns them
-const task = (title, description, date, priority) => {
+/* const task = (title, description, date, priority) => {
     
     return {
         title,
@@ -45,7 +45,6 @@ const folder = (title) => {
         getTasks,
         getActive
     }
-}
 
 const projects = () => {
     let projectList = [];
@@ -67,6 +66,6 @@ const projects = () => {
     function getProject(title){
         return projectList.find(project => project.getActive() === true);
     }
-}
+} */
 
 export{folder , tasks , projects};
