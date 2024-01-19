@@ -2,8 +2,13 @@ import { format, compareAsc } from "date-fns";
 
 //Create a class for folder here
 //Folder class will store all functions to do with folder
-//
+// Store folder title in constructor
+//create an array to store the tasks
 
+//create another file to store the tasks
+//tasks constructor will store task name and due date
+
+//create projects file, where the tasks and folders will be stored
 
 export{};
 //function that takes takes details and returns them
