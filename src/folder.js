@@ -1,5 +1,13 @@
 import { format, compareAsc } from "date-fns";
 
+export default class Project {
+    //project takes the title and stores the input in the title
+    constructor(title){
+        this.title = title;
+        this.tasks = [];
+    }
+}
+
 //Create a class for folder here
 //Folder class will store all functions to do with folder
 // Store folder title in constructor
