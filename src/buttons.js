@@ -11,7 +11,7 @@ function showDialog() {
     folderButtonAdd.addEventListener('click',  () => {
         folderDialogBox.showModal();
     })
-.
+
     //button to open the dialog box for To-Do's
     //buttonAddTask.addEventListener('click', () => {
        // taskDialogBox.showModal();

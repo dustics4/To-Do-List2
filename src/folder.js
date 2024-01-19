@@ -1,7 +1,11 @@
 import { format, compareAsc } from "date-fns";
 
+
+
+
+export{};
 //function that takes takes details and returns them
-/* const task = (title, description, date, priority) => {
+/*const task = (title, description, date, priority) => {
     
     return {
         title,
@@ -10,8 +14,8 @@ import { format, compareAsc } from "date-fns";
         priority,
     }
 }
-
-const folder = (title) => {
+/*
+/*const folder = (title) => {
     //empty array to store tasks in the folder
     let tasks = [];
     let active = false;
@@ -45,27 +49,28 @@ const folder = (title) => {
         getTasks,
         getActive
     }
-
-const projects = () => {
-    let projectList = [];
+}
+*/
+//const projects = () => {
+  //  let projectList = [];
 
     //create folders append function
     //push folders(title), folders list
-    function projectsAppend(title){
-        const newProject = folder(title);
-        projectList.push(newProject);
-    }
+    //function projectsAppend(title){
+      //  const newProject = folder(title);
+        //projectList.push(newProject);
+    //}
 
     //remove folders (user filter), folders list
 
     //get foldersList - return foldersLIst
-    function getProjectList(){
-        return projectList;
-    }
+    //function getProjectList(){
+      //  return projectList;
+    //}
     //getfolder , return folderslist.find projectitle
-    function getProject(title){
-        return projectList.find(project => project.getActive() === true);
-    }
-} */
+    //function getProject(title){
+      //  return projectList.find(project => project.getActive() === true);
+    //}
+//}
 
-export{folder , tasks , projects};
+
