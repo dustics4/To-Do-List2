@@ -14,7 +14,7 @@ const dom = (() => {
     //this is done in the folder.js file
     function addProject(){
         const title = document.getElementById("folder-name");
-        projects.setProjects(title.value);
+        projects.addProject(title);
         return title;
     }
 

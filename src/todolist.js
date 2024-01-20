@@ -8,7 +8,6 @@ export default class ToDoList {
 
     setProjects(projects){
         this.projects = projects;
-        console.log(projects);
     }
 
     getProjects(){
