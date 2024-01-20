@@ -2,6 +2,10 @@ import ToDoList from "./todolist";
 
 
 const dom = (() => {
+
+    const projects = new ToDoList;
+
+    const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
 
     //console log to check if dom is working
@@ -9,9 +13,8 @@ const dom = (() => {
     //function to take the input from dialog and store it into the projects array list
     //this is done in the folder.js file
     function addProject(){
-        let project = new ToDoList;
         const title = document.getElementById("folder-name");
-        project.setProjects(title.value);
+        projects.setProjects(title.value);
         return title;
     }
 
@@ -24,11 +27,19 @@ const dom = (() => {
         <button class="project-btn" id="${title}">${title}</button>
         <button><i class="fa-solid fa-trash project-remove"></i></button>
         `
+        return newP;
+    }
+
+    function displayProject(){
+        let list = projects.getProjects();
+        projectsDiv.innerHTML = "";
+        list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+
     }
 
     folderButtonSubmit.addEventListener('click', () =>{
         addProject();
-        createProject();
+        displayProject();
     })
 })
 
