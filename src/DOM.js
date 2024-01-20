@@ -28,6 +28,7 @@ const dom = (() => {
 
     folderButtonSubmit.addEventListener('click', () =>{
         addProject();
+        createProject();
     })
 })
 
