@@ -1,6 +1,4 @@
 import { format, compareAsc } from "date-fns";
-
-
 export default class Project {
     //project takes the title and stores the input in the title
     constructor(title){
@@ -41,19 +39,7 @@ export default class Project {
     }
 }
 
-export class ToDoList {
-    constructor(){
-        this.projects = [];
-    }
 
-    setProjects(projects){
-        this.projects = projects;
-    }
-
-    getProjects(){
-        return this.projects;
-    }
-}
 
 //Make sure we are trying to make this work in console first. Console log everything, you will be FINE!
 //Create a class for folder here
