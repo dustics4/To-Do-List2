@@ -8,11 +8,9 @@ const dom = (() => {
     function addProject(){
         let project = new Project;
         const title = document.getElementById("folder-name");
-        project.projectsAppend(title);
+        project.folderTitleAppend(title);
         console.log(title);
         return title;
-        
-        console.log()
     }
 
     //create the project, takes users input, takes the title, stores it into a div
