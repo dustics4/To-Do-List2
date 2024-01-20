@@ -14,6 +14,7 @@ export default class Project {
     }
 }
 
+//Make sure we are trying to make this work in console first. Console log everything, you will be FINE!
 //Create a class for folder here
 //Folder class will store all functions to do with folder
 // Store folder title in constructor
