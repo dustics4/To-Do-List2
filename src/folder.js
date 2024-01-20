@@ -52,8 +52,6 @@ export default class Project {
 
 //create projects file, where the tasks and folders will be stored
 //The projects file will be the main one where all the information will be store together
-
-export{};
 //function that takes takes details and returns them
 /*const task = (title, description, date, priority) => {
     
