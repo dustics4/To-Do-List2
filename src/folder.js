@@ -1,5 +1,6 @@
 import { format, compareAsc } from "date-fns";
 
+
 export default class Project {
     //project takes the title and stores the input in the title
     constructor(title){
@@ -7,10 +8,50 @@ export default class Project {
         this.tasks = [];
     }
 
-    folderTitleAppend(){
-        const newTitle = this.title;
-        newTitle.push(this.title);
-        console.log(newTitle);
+    setTitle(title){
+        this.title = title;
+    }
+
+    getTitle(){
+        return this.title;
+    }
+
+    setTasks(tasks){
+        this.tasks = tasks;
+    }
+
+    getTasks(){
+        return this.tasks;
+    }
+
+    getTask(taskName){
+        return this.tasks.find((task) => task.getTitle() === taskName);
+    }
+
+    contains(taskName){
+        return this.tasks.some((task) => task.getTitle() === taskName);
+    }
+
+    addTask(newTask){
+        if(this.tasks.find((task) => task.getTitle() === newTask.name)) return this.tasks.push(newTask);
+    }
+
+    deleteTask(taskName){
+        this.tasks = this.tasks.filter((task) => task.name != taskName);
+    }
+}
+
+export class ToDoList {
+    constructor(){
+        this.projects = [];
+    }
+
+    setProjects(projects){
+        this.projects = projects;
+    }
+
+    getProjects(){
+        return this.projects;
     }
 }
 

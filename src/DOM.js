@@ -1,6 +1,10 @@
+import { Task } from "./folder";
+import { ToDoList } from "./folder";
 import Project, { projects } from './folder.js';
 
 const dom = (() => {
+    const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
+
     //console log to check if dom is working
     console.log("project");
     //function to take the input from dialog and store it into the projects array list
@@ -24,6 +28,9 @@ const dom = (() => {
         `
     }
 
+    folderButtonSubmit.addEventListener('click', () =>{
+        addProject();
+    })
 })
 
 export{dom};
