@@ -4,7 +4,6 @@ const dom = (() => {
 
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
-    const folderButtonRemove = document.getElementById("trash-folder");
 
     function addProject(){
         const title = document.getElementById("folder-name").value;
@@ -29,10 +28,23 @@ const dom = (() => {
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
     }
 
-    folderButtonSubmit.addEventListener('click', () =>{
-        displayProjects();
-    })
+    function removeProjects(){
+        let projectRemoved = e.target.id;
+        projects.removeProject(projectRemoved);
+        console.log("removed")
+        //display projects function
+        //display tasks function
+    }
 
+    folderButtonSubmit.addEventListener('click', displayProjects)
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const folderButtonRemove = document.getElementById("trash-folder");
+        folderButtonRemove?.addEventListener('click', () => {
+            console.log("click");
+        });
+    })
 
 })
 
