@@ -54,10 +54,12 @@ export const projects = (() => {
   function projectsAppend(title) {
       const newProject = project(title);
       projectsList.push(newProject);
+      console.log(newProject);
   }
 
   function removeProject(title) {
       projectsList = projectsList.filter(project => project.title !== title);
+      return projectsList.splice(title, 1);
   }
   
   function getProjectsList() {

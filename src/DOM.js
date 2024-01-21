@@ -31,9 +31,7 @@ const dom = (() => {
     folderButtonSubmit.addEventListener('click', displayProjects)
 
     function removeProjectButton(){
-        console.log("hi");
         const folderButtonRemove = document.getElementById("trash-folder");
-        console.log(folderButtonRemove );
 
         document.addEventListener('click' , e =>{
             let target = e.target.getAttribute("class");
@@ -44,10 +42,9 @@ const dom = (() => {
 
             if(target.includes('trash-folder')){
                 console.log("clicked");
-                let projectRemoved = e.target.parentNode.previousElementSibling.id;
-                projects.removeProject(projectRemoved);
-                console.log("removed")
+                const dataIndex = e.target.dataset.index;
 
+                projects.removeProject(dataIndex);
                 //display projects function
                 //display tasks function
             }
