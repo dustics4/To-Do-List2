@@ -4,6 +4,7 @@ const dom = (() => {
 
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
+    const folderButtonRemove = document.getElementById("trash-folder");
 
     function addProject(){
         const title = document.getElementById("folder-name").value;
@@ -31,6 +32,8 @@ const dom = (() => {
     folderButtonSubmit.addEventListener('click', () =>{
         displayProjects();
     })
+
+
 })
 
 export{dom};
