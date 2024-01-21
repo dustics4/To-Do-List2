@@ -16,7 +16,7 @@ const dom = (() => {
         newP.classList.add('folder-title-area');
         newP.innerHTML = `
         <button class="project-btn" id="${title}">${title}</button>
-        <button><class="trash-folder">X</i></button>
+        <button class="trash-folder" id="trash-folder">X</button>
         `
         return newP;
     }
