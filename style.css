@@ -84,11 +84,21 @@
 }
 
 .folder-body {
-  padding-bottom: 10px;
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+} 
+
+.folder-title-area {
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
 }
 
   /*----- To Do section ------ */
@@ -116,12 +126,29 @@ button {
 
 button:hover {
   background-color: #8e8e8e;
+  border-color: #131313;
+
 }
 
 .trash-folder {
-  background-color: transparent;
-  margin-top: 10px;
-  padding: 10px 10px;
+  background-color: #ff7676;
+  font-weight: 800;
+  padding: 10px 15px;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.trash-folder:hover {
+  background-color: #de4e4e;
+}
+
+.project-btn {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.project-btn:hover {
 
 }
 
