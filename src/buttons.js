@@ -6,6 +6,7 @@ function showDialog() {
     const buttonClose = document.getElementById("buttonClose");
     const folderButtonAdd = document.getElementById("button-add-folder")
     const folderDialogBox = document.getElementById("folder-dialog-box");
+    const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
 
     //Button to open the dialog box for Folder
     folderButtonAdd.addEventListener('click',  () => {
@@ -16,7 +17,6 @@ function showDialog() {
     //buttonAddTask.addEventListener('click', () => {
        // taskDialogBox.showModal();
     //})
-    
 
     //button to Close the dialog box for To-Do's
     buttonClose.addEventListener("click", () => {
@@ -28,6 +28,7 @@ function showDialog() {
 
 const buttonSubmit = (() => {
    
+
     function folderSubmit(){
         const folderSubmitButton = document.getElementById("button-add-folder");
         

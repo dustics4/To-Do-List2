@@ -38,13 +38,19 @@ const dom = (() => {
 
     folderButtonSubmit.addEventListener('click', displayProjects)
 
-
-    document.addEventListener("DOMContentLoaded", () => {
+    function removeProjectButton(event){
+        var element = event.target;
         const folderButtonRemove = document.getElementById("trash-folder");
-        folderButtonRemove?.addEventListener('click', () => {
-            console.log("click");
-        });
-    })
+        console.log(folderButtonRemove );
+
+        if(element.classList.contains("trash-folder")){
+            console.log('hi');
+            folderButtonRemove?.addEventListener('click', () => {
+                console.log("click" );
+            });
+        }
+        
+    }       
 
 })
 
