@@ -3,7 +3,7 @@ import Project from "./folder";
 
 const dom = (() => {
 
-    const projects = new Project;
+    const projects = new ToDoList;
 
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
@@ -13,7 +13,7 @@ const dom = (() => {
     function addProject(){
         const title = document.getElementById("folder-name");
         projects.title = title.value;
-        projects.setTitle(title);
+        projects.addProject(title);
         return title;
     }
 
@@ -30,9 +30,9 @@ const dom = (() => {
     }
 
     function displayProject(){
-        let list = projects.getTitle();
+        let list = projects.getProject;
         projectsDiv.innerHTML = "";
-        list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+        list.forEach(project => projectsDiv.appendChild(createProject(project.name)));
 
     }
 

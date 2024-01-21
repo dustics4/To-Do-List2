@@ -6,6 +6,10 @@ export default class ToDoList {
         this.projects = [];
     }
 
+    getProjectName(){
+        return this.projects.name;
+    }
+
     setProjects(projects){
         this.projects = projects;
     }
