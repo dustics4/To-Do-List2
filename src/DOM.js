@@ -13,7 +13,7 @@ const dom = (() => {
     function addProject(){
         const title = document.getElementById("folder-name");
         projects.title = title.value;
-        projects.addProject(title);
+        projects.setTitle(title);
         return title;
     }
 
@@ -30,7 +30,7 @@ const dom = (() => {
     }
 
     function displayProject(){
-        let list = projects.getProjects();
+        let list = projects.getTitle();
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
 
