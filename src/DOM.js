@@ -42,9 +42,8 @@ const dom = (() => {
 
             if(target.includes('trash-folder')){
                 console.log("clicked");
-                const dataIndex = e.target.dataset.index;
-
-                projects.removeProject(dataIndex);
+                let projectRemoved = e.target.parentNode.previousElementSibling.id;
+                projects.removeProject(projectRemoved);
                 //display projects function
                 //display tasks function
             }
