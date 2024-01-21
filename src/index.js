@@ -1,9 +1,7 @@
 import {showDialog,buttonSubmit} from "./buttons";
-import { dom } from "./DOM";
+import dom from "./DOM";
 
 
 showDialog();
 buttonSubmit();
-document.addEventListener( "click", dom.removeProjectButton);
-
-dom();
+document.addEventListener( 'DOMContentLoaded', dom.removeProjectButton);

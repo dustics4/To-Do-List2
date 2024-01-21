@@ -28,30 +28,38 @@ const dom = (() => {
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
     }
 
-    function removeProjects(){
-        let projectRemoved = e.target.id;
-        projects.removeProject(projectRemoved);
-        console.log("removed")
-        //display projects function
-        //display tasks function
-    }
-
     folderButtonSubmit.addEventListener('click', displayProjects)
 
-    function removeProjectButton(event){
-        var element = event.target;
+    function removeProjectButton(){
+        console.log("hi");
         const folderButtonRemove = document.getElementById("trash-folder");
         console.log(folderButtonRemove );
 
-        if(element.classList.contains("trash-folder")){
-            console.log('hi');
-            folderButtonRemove?.addEventListener('click', () => {
-                console.log("click" );
-            });
-        }
+        document.addEventListener('click' , e =>{
+            let target = e.target.getAttribute("class");
+
+            if(!target){
+                return
+            };
+
+            if(target.includes('trash-folder')){
+                console.log("clicked");
+                let projectRemoved = e.target.parentNode.previousElementSibling.id;
+                projects.removeProject(projectRemoved);
+                console.log("removed")
+
+                //display projects function
+                //display tasks function
+            }
+        })
         
-    }       
+        
+    }  
+    
+    return {
+        removeProjectButton,
+    }
 
-})
+})();
 
-export{dom};
+export default dom;
