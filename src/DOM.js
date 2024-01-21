@@ -16,14 +16,20 @@ const dom = (() => {
         newP.classList.add('folder-title-area');
         newP.innerHTML = `
         <button class="project-btn" id="${title}">${title}</button>
-        <button><i class="fa-solid fa-trash project-remove"></i></button>
+        <button><i class="fa-solid fa-trash project-remove">X</i></button>
         `
         return newP;
     }
 
-    folderButtonSubmit.addEventListener('click', () =>{
+    function displayProjects(){
         addProject();
-        createProject();
+        let list = projects.getProjectsList();
+        projectsDiv.innerHTML = "";
+        list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+    }
+
+    folderButtonSubmit.addEventListener('click', () =>{
+        displayProjects();
     })
 })
 
