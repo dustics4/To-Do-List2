@@ -1,19 +1,18 @@
 import ToDoList from "./todolist";
-
+import Project from "./folder";
 
 const dom = (() => {
 
-    const projects = new ToDoList;
+    const projects = new Project;
 
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
 
-    //console log to check if dom is working
-    console.log("project");
     //function to take the input from dialog and store it into the projects array list
     //this is done in the folder.js file
     function addProject(){
         const title = document.getElementById("folder-name");
+        projects.title = title.value;
         projects.addProject(title);
         return title;
     }
