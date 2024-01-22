@@ -1,15 +1,21 @@
 import { project , projects } from "./project";
+import { tryingProject } from "./project";
 
 const dom = (() => {
 
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
 
+
     function addProject(){
         const title = document.getElementById("folder-name").value;
         projects.projectsAppend(title);
         return title;
     }
+
+    projects.projectList.forEach(project => {
+        
+    })
 
     function createProject(title){
         const newP = document.createElement('div');

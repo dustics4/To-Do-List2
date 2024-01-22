@@ -79,6 +79,7 @@ export const projects = (() => {
   }
 
   return {
+        projectList,
       projectsAppend,
       getProjectsList,
       getActiveProject,
