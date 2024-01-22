@@ -12,13 +12,23 @@ const dom = (() => {
     }
 
     function createProject(title){
+        
+
         const newP = document.createElement('div');
         newP.classList.add('folder-title-area');
         newP.innerHTML = `
         <button class="project-btn" id="${title}">${title}</button>
         <button class="trash-folder" id="trash-folder">X</button>
         `
+        const folderButtonRemove = document.getElementById("trash-folder");
+
+        folderButtonRemove?.addEventListener('click', () => {
+            console.log("click");
+        })
+
         return newP;
+
+        
     }
 
     function displayProjects(){
@@ -30,7 +40,7 @@ const dom = (() => {
 
     folderButtonSubmit.addEventListener('click', displayProjects)
 
-    function removeProjectButton(){
+    /*function removeProjectButton(){
         const folderButtonRemove = document.getElementById("trash-folder");
 
         document.addEventListener('click' , e =>{
@@ -55,6 +65,7 @@ const dom = (() => {
     return {
         removeProjectButton,
     }
+    */
 
 })();
 

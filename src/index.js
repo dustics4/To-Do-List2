@@ -4,4 +4,5 @@ import dom from "./DOM";
 
 showDialog();
 buttonSubmit();
-document.addEventListener( 'DOMContentLoaded', dom.removeProjectButton);
+//dom();
+//document.addEventListener( 'DOMContentLoaded', dom.removeProjectButton);
