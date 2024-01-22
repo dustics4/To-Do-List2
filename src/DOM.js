@@ -12,23 +12,13 @@ const dom = (() => {
     }
 
     function createProject(title){
-        
-
         const newP = document.createElement('div');
         newP.classList.add('folder-title-area');
         newP.innerHTML = `
         <button class="project-btn" id="${title}">${title}</button>
         <button class="trash-folder" id="trash-folder">X</button>
         `
-        const folderButtonRemove = document.getElementById("trash-folder");
-
-        folderButtonRemove?.addEventListener('click', () => {
-            console.log("click");
-        })
-
         return newP;
-
-        
     }
 
     function displayProjects(){
@@ -36,6 +26,14 @@ const dom = (() => {
         let list = projects.getProjectsList();
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+
+        const folderButtonRemove = document.getElementById("trash-folder");
+
+        folderButtonRemove.addEventListener('click', (e) => {
+            console.log("click");
+            let projectRemoved = e.target.id;
+            projects.removeProject(projectRemoved);
+        })
     }
 
     folderButtonSubmit.addEventListener('click', displayProjects)
