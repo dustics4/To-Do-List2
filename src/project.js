@@ -79,7 +79,7 @@ export const projects = (() => {
   }
 
   return {
-        projectList,
+        projectsList,
       projectsAppend,
       getProjectsList,
       getActiveProject,

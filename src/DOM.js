@@ -13,17 +13,16 @@ const dom = (() => {
         return title;
     }
 
-    projects.projectList.forEach(project => {
-        
-    })
-
     function createProject(title){
         const newP = document.createElement('div');
         newP.classList.add('folder-title-area');
+        newP.setAttribute('id', 'foreachadd');
         newP.innerHTML = `
         <button class="project-btn" id="${title}">${title}</button>
         <button class="trash-folder" id="trash-folder">X</button>
         `
+
+
         return newP;
     }
 
@@ -34,15 +33,20 @@ const dom = (() => {
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
 
         const folderButtonRemove = document.getElementById("trash-folder");
+        const foldertitle = document.getElementById("foreachadd");
 
         folderButtonRemove.addEventListener('click', (e) => {
             console.log("click");
             let projectRemoved = e.target.id;
             projects.removeProject(projectRemoved);
+
+            foldertitle.remove();
         })
     }
 
     folderButtonSubmit.addEventListener('click', displayProjects)
+
+
 
     /*function removeProjectButton(){
         const folderButtonRemove = document.getElementById("trash-folder");
