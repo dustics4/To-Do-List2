@@ -24,24 +24,29 @@ const dom = (() => {
             `
             projectsDiv.appendChild(newP);
 
+            const folderButtonRemove = document.getElementById("trash-folder");
+
+            folderButtonRemove.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log("click");
+                projects.removeProject();
+                if(newP === newP){
+                    newP.remove();
+                }
+            })     
         })
     }
 
+    
+
     function displayProjects(){
-        let list = projects.getProjectsList();
-        projectsDiv.innerHTML = "";
-        list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
-
         const folderButtonRemove = document.getElementById("trash-folder");
-        const foldertitle = document.getElementById("foreachadd");
 
-        folderButtonRemove.addEventListener('click', (e) => {
-            console.log("click");
-            let projectRemoved = e.target.id;
-            projects.removeProject(projectRemoved);
-
-            foldertitle.remove();
-        })
+            folderButtonRemove.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log("click");
+                projects.projectsList()
+        })      
     }
 
     folderButtonSubmit.addEventListener('click', (e) =>{
@@ -72,12 +77,13 @@ const dom = (() => {
         })
         
         
-    }  
+    }  */
     
     return {
-        removeProjectButton,
+        renderProject,
+        addProject,
     }
-    */
+    
 
 })();
 
