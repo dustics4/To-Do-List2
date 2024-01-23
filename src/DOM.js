@@ -12,22 +12,21 @@ const dom = (() => {
         projects.projectsAppend(title);
         return title;
     }
-
-    function createProject(title){
-        const newP = document.createElement('div');
-        newP.classList.add('folder-title-area');
-        newP.setAttribute('id', 'foreachadd');
-        newP.innerHTML = `
-        <button class="project-btn" id="${title}">${title}</button>
-        <button class="trash-folder" id="trash-folder">X</button>
-        `
-
-
-        return newP;
+    
+    function renderProject(){
+        projectsDiv.innerHTML= '';
+        projects.projectsList.forEach(project => {
+            const newP = document.createElement('div');
+            newP.classList.add('folder-title-area');
+            newP.innerHTML = `
+            <button class="project-btn" id="${project.title}">${project.title}</button>
+            <button class="trash-folder" id="trash-folder">X</button>
+            `
+            projectsDiv.appendChild(newP);
+        })
     }
 
     function displayProjects(){
-        addProject();
         let list = projects.getProjectsList();
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
@@ -44,7 +43,11 @@ const dom = (() => {
         })
     }
 
-    folderButtonSubmit.addEventListener('click', displayProjects)
+    folderButtonSubmit.addEventListener('click', (e) =>{
+        e.preventDefault;
+        addProject();
+        renderProject();
+    })
 
 
 
