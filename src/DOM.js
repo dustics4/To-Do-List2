@@ -23,6 +23,7 @@ const dom = (() => {
             <button class="trash-folder" id="trash-folder">X</button>
             `
             projectsDiv.appendChild(newP);
+
         })
     }
 
