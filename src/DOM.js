@@ -23,17 +23,6 @@ const dom = (() => {
             <button class="trash-folder" id="trash-folder">X</button>
             `
             projectsDiv.appendChild(newP);
-
-            const folderButtonRemove = document.querySelectorAll(".trash-folder");
-
-            folderButtonRemove.forEach((folderButtonRemove) => {
-                folderButtonRemove.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log("click");
-                    projects.removeProject();
-                    newP.remove();
-                })    
-            })
              
         })
     }
@@ -41,13 +30,16 @@ const dom = (() => {
     
 
     function displayProjects(){
-        const folderButtonRemove = document.getElementById("trash-folder");
+        const folderButtonRemove = document.querySelectorAll(".trash-folder");
 
-            folderButtonRemove.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log("click");
-                projects.projectsList()
-        })      
+            folderButtonRemove?.forEach((folderButtonRemove) => {
+                folderButtonRemove.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log("click");
+                    projects.removeProject();
+                    newP.remove();
+                })    
+            })    
     }
 
     folderButtonSubmit.addEventListener('click', (e) =>{
@@ -56,33 +48,11 @@ const dom = (() => {
         renderProject();
     })
 
-
-
-    /*function removeProjectButton(){
-        const folderButtonRemove = document.getElementById("trash-folder");
-
-        document.addEventListener('click' , e =>{
-            let target = e.target.getAttribute("class");
-
-            if(!target){
-                return
-            };
-
-            if(target.includes('trash-folder')){
-                console.log("clicked");
-                let projectRemoved = e.target.parentNode.previousElementSibling.id;
-                projects.removeProject(projectRemoved);
-                //display projects function
-                //display tasks function
-            }
-        })
-        
-        
-    }  */
     
     return {
         renderProject,
         addProject,
+        displayProjects,
     }
     
 
