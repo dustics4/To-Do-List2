@@ -26,18 +26,7 @@ function showDialog() {
     })
 }
 
-const buttonSubmit = (() => {
-   
-
-    function folderSubmit(){
-        const folderSubmitButton = document.getElementById("button-add-folder");
-        
-        folderSubmitButton.addEventListener("Click", () => {
-
-        });
-    }
-
-})
 
 
-export{showDialog, buttonSubmit};
+
+export{showDialog};

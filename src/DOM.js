@@ -24,20 +24,22 @@ const dom = (() => {
             `
             projectsDiv.appendChild(newP);
              
+        
         })
+        displayProjects();
     }
 
     
 
     function displayProjects(){
         const folderButtonRemove = document.querySelectorAll(".trash-folder");
-
-            folderButtonRemove?.forEach((folderButtonRemove) => {
+        const folderDiv = document.querySelectorAll(".folder-title-area");
+            folderButtonRemove.forEach((folderButtonRemove) => {
                 folderButtonRemove.addEventListener('click', (e) => {
                     e.preventDefault();
                     console.log("click");
                     projects.removeProject();
-                    newP.remove();
+                    //folderDiv.forEach(folder => folder.remove());
                 })    
             })    
     }

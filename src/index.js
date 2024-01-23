@@ -3,6 +3,5 @@ import dom from "./DOM";
 
 
 showDialog();
-buttonSubmit();
 //dom();
 //document.addEventListener( 'DOMContentLoaded', dom.removeProjectButton);
