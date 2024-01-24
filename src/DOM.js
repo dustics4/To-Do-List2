@@ -26,12 +26,12 @@ const dom = (() => {
              
         
         })
-        displayProjects();
+        removeListener();
     }
 
     
 
-    function displayProjects(){
+    function removeListener(){
         const folderButtonRemove = document.querySelectorAll(".trash-folder");
         const folderDiv = document.querySelectorAll(".folder-title-area");
             folderButtonRemove.forEach((folderButtonRemove) => {
@@ -54,7 +54,7 @@ const dom = (() => {
     return {
         renderProject,
         addProject,
-        displayProjects,
+        removeListener,
     }
     
 
