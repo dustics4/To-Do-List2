@@ -23,23 +23,22 @@ const dom = (() => {
             <button class="trash-folder" id="trash-folder">X</button>
             `
             projectsDiv.appendChild(newP);
-             
-        
+            
+            removeListener(project);
         })
-        removeListener();
+       
     }
 
     
 
-    function removeListener(){
+    function removeListener(project){
         const folderButtonRemove = document.querySelectorAll(".trash-folder");
         const folderDiv = document.querySelectorAll(".folder-title-area");
             folderButtonRemove.forEach((folderButtonRemove) => {
                 folderButtonRemove.addEventListener('click', (e) => {
                     e.preventDefault();
                     console.log("click");
-                    projects.removeProject();
-                    //folderDiv.forEach(folder => folder.remove());
+                    projects.removeProject(project);
                 })    
             })    
     }
