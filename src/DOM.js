@@ -5,6 +5,8 @@ const dom = (() => {
 
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
+    const folderButtonClose = document.getElementById("folder-button-close");
+    const folderDialogBox = document.getElementById("folder-dialog-box");
 
 
     function addProject(){
@@ -49,6 +51,9 @@ const dom = (() => {
         renderProject();
     })
 
+    folderButtonClose.addEventListener('click' , ()=>{
+        folderDialogBox.close();
+    })
     
     return {
         addProject,
