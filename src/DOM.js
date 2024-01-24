@@ -45,15 +45,14 @@ const dom = (() => {
 
     folderButtonSubmit.addEventListener('click', (e) =>{
         e.preventDefault;
-        addProject();
+        addProject();   
         renderProject();
     })
 
     
     return {
-        renderProject,
         addProject,
-        removeListener,
+        renderProject,
     }
     
 
