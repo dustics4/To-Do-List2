@@ -26,16 +26,23 @@ const dom = (() => {
             `
             projectsDiv.appendChild(newP);
             
+            
             removeListener(project);
         })
        
     }
 
+    function clearInput(){
+        const title = document.getElementById("folder-name");
+        title.value = '';
+    }
     
 
     function removeListener(project){
         const folderButtonRemove = document.querySelectorAll(".trash-folder");
         const folderDiv = document.querySelectorAll(".folder-title-area");
+
+
             folderButtonRemove.forEach((folderButtonRemove) => {
                 folderButtonRemove.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -45,15 +52,18 @@ const dom = (() => {
             })    
     }
 
+    const validatedField = false;
+
     folderButtonSubmit.addEventListener('click', (e) =>{
         e.preventDefault;
-        addProject();   
+        if(validatedField == false){
+            addProject();   
+        }
         renderProject();
+        folderDialogBox.close();
+        clearInput();
     })
 
-    folderButtonClose.addEventListener('click' , ()=>{
-        folderDialogBox.close();
-    })
     
     return {
         addProject,
