@@ -26,8 +26,16 @@ const dom = (() => {
             `
             projectsDiv.appendChild(newP);
             
-            
-            removeListener(project);
+            const folderButtonRemove = document.querySelectorAll(".trash-folder");
+
+            folderButtonRemove.forEach((folderButtonRemove) => {
+                folderButtonRemove.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log("click");
+                    projects.removeProject(project.title);
+                })    
+            })  
+            //removeListener(project);
         })
        
     }

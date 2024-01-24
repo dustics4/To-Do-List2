@@ -57,15 +57,16 @@ export const projects = (() => {
       console.log(newProject);
   }
 
-  function removeProject(index) {
-      //projectsList = projectsList.filter(project => project.title !== title);
+  function removeProject(title) {
+      projectsList = projectsList.filter(project => project.title !== title);
+      console.log(projectsList = projectsList.filter(project => project.title !== title));
       //projectsList.forEach((project,index) =>{
         //if(project.title == title){
           //  projectsList.splice(index, 1);
        // }
       //})
-      projectsList.splice(index, 1);
-      console.log(projectsList.splice(index, 1));
+      //projectsList.splice(index, 1);
+      //console.log(projectsList.splice(index, 1));
   }
 
   console.log(removeProject());
