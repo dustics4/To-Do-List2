@@ -33,6 +33,7 @@ const dom = (() => {
                     e.preventDefault();
                     console.log("click");
                     projects.removeProject(project.title);
+                    newP.remove();
                 })    
             })  
             //removeListener(project);
