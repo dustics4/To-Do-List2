@@ -46,21 +46,6 @@ const dom = (() => {
         title.value = '';
     }
     
-
-    function removeListener(project){
-        const folderButtonRemove = document.querySelectorAll(".trash-folder");
-        const folderDiv = document.querySelectorAll(".folder-title-area");
-
-
-            folderButtonRemove.forEach((folderButtonRemove) => {
-                folderButtonRemove.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log("click");
-                    projects.removeProject(project);
-                })    
-            })    
-    }
-
     const validatedField = false;
 
     folderButtonSubmit.addEventListener('click', (e) =>{
