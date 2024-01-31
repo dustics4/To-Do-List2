@@ -52,7 +52,7 @@ const dom = (() => {
             return newP;
     }
 
-    function displayProjects(title){
+    function displayProjects(){
         let list = projects.getProjectsList();
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
