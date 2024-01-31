@@ -9,7 +9,7 @@ const dom = (() => {
     const folderDialogBox = document.getElementById("folder-dialog-box");
 
 
-    function addProject(){
+  /*  function addProject(){
         const title = document.getElementById("folder-name").value;
         projects.projectsAppend(title);
         return title;
@@ -40,28 +40,46 @@ const dom = (() => {
         })
        
     }
+*/
+    function createProject(title){
+            const newP = document.createElement('div');
+            newP.classList.add('folder-title-area');
+            newP.innerHTML = `
+            <button class="project-btn" id="${title}">${title}</button>
+            <button class="trash-folder" id="trash-folder">X</button>
+            `
+
+            return newP;
+    }
+
+    function displayProjects(title){
+        let list = projects.getProjectsList();
+        projectsDiv.innerHTML = "";
+        list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+    }
+
+    
+    
+    const validatedField = false;
+
+    folderButtonSubmit.addEventListener('click', () =>{
+        let title =  document.getElementById("folder-name").value;
+        projects.projectsAppend(title);
+
+        createProject(title);
+        displayProjects();
+        folderDialogBox.close();
+        clearInput();
+    })
+
 
     function clearInput(){
         const title = document.getElementById("folder-name");
         title.value = '';
     }
     
-    const validatedField = false;
-
-    folderButtonSubmit.addEventListener('click', (e) =>{
-        e.preventDefault;
-        if(validatedField == false){
-            addProject();   
-        }
-        renderProject();
-        folderDialogBox.close();
-        clearInput();
-    })
-
-    
     return {
-        addProject,
-        renderProject,
+        
     }
     
 
