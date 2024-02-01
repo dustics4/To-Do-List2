@@ -17,6 +17,9 @@ const dom = (() => {
             <button class="project-btn" id="${title}">${title}</button>
             <button class="trash-folder" id="trash-folder">X</button>
             `
+            //When the .trash-folder button is clicked, it retrieves the project title from the sibling button (.project-btn) using e.target.previousElementSibling.id.
+            //It then calls projects.removeProject(projectTitle) to remove the project from the projectsList array.
+            //Finally, it removes the parent element from the DOM using e.target.parentElement.remove().
             newP.querySelector(".trash-folder").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log("click");
