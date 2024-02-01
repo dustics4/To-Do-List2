@@ -8,41 +8,7 @@ const dom = (() => {
     const folderButtonClose = document.getElementById("folder-button-close");
     const folderDialogBox = document.getElementById("folder-dialog-box");
     
-    const folderButtonRemove = document.getElementById("trash-folder");
-  /*  function addProject(){
-        const title = document.getElementById("folder-name").value;
-        projects.projectsAppend(title);
-        return title;
-    }
-    
-    function renderProject(){
-        projectsDiv.innerHTML= '';
-        projects.projectsList.forEach(project => {
-            const newP = document.createElement('div');
-            newP.classList.add('folder-title-area');
-            newP.innerHTML = `
-            <button class="project-btn" id="${project.title}">${project.title}</button>
-            <button class="trash-folder" id="trash-folder">X</button>
-            `
-            projectsDiv.appendChild(newP);
-            
-            const folderButtonRemove = document.querySelectorAll(".trash-folder");
-
-            folderButtonRemove.forEach((folderButtonRemove) => {
-                folderButtonRemove.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log("click");
-                    projects.removeProject(project.title);
-                    newP.remove();
-                })    
-            })  
-            //removeListener(project);
-        })
-       
-    }
-*/  
-
-    
+    const folderButtonRemove = document.getElementById("trash-folder");    
 
     function createProject(title){
             const newP = document.createElement('div');
