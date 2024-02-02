@@ -26,7 +26,11 @@ const dom = (() => {
                 const projectTitle = e.target.previousElementSibling.id;
                 projects.removeProject(projectTitle);
                 e.target.parentElement.remove();
-                displayProjects();
+            });
+
+            newP.querySelector(".project-btn").addEventListener("click", (e) => {
+                e.preventDefault();
+                console.log('click');
             });
 
             return newP;
