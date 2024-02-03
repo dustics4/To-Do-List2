@@ -31,7 +31,7 @@ const dom = (() => {
             newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
-                
+
             });
 
             return newP;
@@ -42,6 +42,14 @@ const dom = (() => {
         let list = projects.getProjectsList();
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+
+    }
+
+    function createTask(){
+
+    }
+
+    function displayTaskAddButton(){
 
     }
 
