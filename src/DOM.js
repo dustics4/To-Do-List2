@@ -50,7 +50,10 @@ const dom = (() => {
     }
 
     function displayTaskAddButton(){
-
+        const toDoContent = document.querySelector('.to-do-content');
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('task-add-button-container');
+        let addTasksButton = document.createElement('button');
     }
 
     
