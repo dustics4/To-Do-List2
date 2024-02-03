@@ -7,7 +7,7 @@ const dom = (() => {
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
     const folderButtonClose = document.getElementById("folder-button-close");
     const folderDialogBox = document.getElementById("folder-dialog-box");
-    
+    const tasksDiv = document.getElementById("to-do-body");
     const folderButtonRemove = document.getElementById("trash-folder");    
 
     function createProject(title){
@@ -44,12 +44,24 @@ const dom = (() => {
 
     }
 
-    function createTask(){
+    function addTasks(){
         
     }
 
+    function createTask(title, priority){
+
+
+    }
+
     function displayTasks(){
-  
+        let activeProject = projects.getActiveProject();
+
+        if(activeProject === undefined){
+            tasksDiv.innerHTML = '';
+            return;
+        }
+
+        let list = activeProject.getTasks();
     }
 
     
