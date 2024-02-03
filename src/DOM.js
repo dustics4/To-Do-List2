@@ -31,6 +31,7 @@ const dom = (() => {
             newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
+                
             });
 
             return newP;
@@ -52,7 +53,6 @@ const dom = (() => {
     folderButtonSubmit.addEventListener('click', () =>{
         let title =  document.getElementById("folder-name").value;
         projects.projectsAppend(title);
-
         createProject(title);
         displayProjects();
         folderDialogBox.close();
