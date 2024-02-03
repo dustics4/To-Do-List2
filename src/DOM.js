@@ -15,7 +15,6 @@ const dom = (() => {
             newP.classList.add('folder-title-area');
             newP.innerHTML = `
             <button class="project-btn" id="${title}">${title}</button>
-            <button class="add-task-btn" id="add-task-${title}">Add Task</button>
             <button class="trash-folder" id="trash-folder">X</button>
             `
             //When the .trash-folder button is clicked, it retrieves the project title from the sibling button (.project-btn) using e.target.previousElementSibling.id.
