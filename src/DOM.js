@@ -31,7 +31,6 @@ const dom = (() => {
             newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
-                displayTaskAddButton();
             });
 
             return newP;
@@ -49,16 +48,8 @@ const dom = (() => {
 
     }
 
-    function displayTaskAddButton(){
-        const toDoContent = document.querySelector('.to-do-content');
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('task-add-button-container');
-        let addTasksButton = document.createElement('button');
-        let text = addTasksButton.createTextNode("+");
-
-        button.appendChild(text);
-        newDiv.appendChild(addTasksButton);
-        toDoContent.appendChild(newDiv);
+    function displayTasks(){
+  
     }
 
     
