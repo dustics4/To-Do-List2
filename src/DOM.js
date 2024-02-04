@@ -7,7 +7,7 @@ const dom = (() => {
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
     const folderButtonClose = document.getElementById("folder-button-close");
     const folderDialogBox = document.getElementById("folder-dialog-box");
-    const tasksDiv = document.getElementById("to-do-body");
+    const tasksDiv = document.getElementById("to-do-bodi");
     const folderButtonRemove = document.getElementById("trash-folder");    
 
     //function to createProject , takes in the title of project
@@ -29,25 +29,35 @@ const dom = (() => {
                 e.target.parentElement.remove();
             });
             
-
+            
             newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
-
-                if(e.target.classList.contains('project-btn')){
-                    const activeProject = projects.getActiveProject();
-                    if(activeProject && e.target.id === activeProject.title){
-                        const addTaskButton = document.createElement("button")
-                        addTaskButton.textContent = 'Add Task';
-                        addTaskButton.classList.add('add-task-btn');
-
-                        tasksDiv.appendChild(addTaskButton);
-                    }
-                }
+                createTaskButton(title);
             });
 
             return newP;
 
+    }
+
+    function createTaskButton(projectTitle) {
+        const existingTaskButton = document.querySelector('.task-button');
+            if (existingTaskButton) {
+                existingTaskButton.remove(); // Remove the existing button if it exists
+            }
+        const taskDiv = document.createElement('div');
+        taskDiv.classList.add('task-div');
+        const taskButton = document.createElement('button');
+        taskButton.textContent = `Create Task for ${projectTitle}`;
+        taskButton.classList.add('task-button');
+        taskDiv.appendChild(taskButton);
+        tasksDiv.innerHTML = '';
+        tasksDiv.appendChild(taskDiv);
+    
+        taskButton.addEventListener('click', () => {
+            // Handle task creation for the specific project
+            console.log(`Creating task for project: ${projectTitle}`);
+        });
     }
 
     function displayProjects(){
