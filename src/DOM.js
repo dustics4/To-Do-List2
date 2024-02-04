@@ -27,6 +27,9 @@ const dom = (() => {
                 const projectTitle = e.target.previousElementSibling.id;
                 projects.removeProject(projectTitle);
                 e.target.parentElement.remove();
+                if(projectTitle === title){
+                    tasksDiv.innerHTML = '';
+                }
             });
             
             
