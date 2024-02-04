@@ -10,6 +10,7 @@ const dom = (() => {
     const tasksDiv = document.getElementById("to-do-body");
     const folderButtonRemove = document.getElementById("trash-folder");    
 
+    //function to createProject , takes in the title of project
     function createProject(title){
             const newP = document.createElement('div');
             newP.classList.add('folder-title-area');
@@ -32,6 +33,13 @@ const dom = (() => {
             newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
+
+                if(e.target.classList.contains('project-btn')){
+                    const activeProject = projects.getActiveProject();
+                    if(activeProject && e.target.id === activeProject.title){
+                        const addTaskButton = document.createElement("button")
+                    }
+                }
             });
 
             return newP;
@@ -45,28 +53,24 @@ const dom = (() => {
 
     }
 
+    function displayActiveProject(){
+        //this function is supposed to display a button to add projects when clicking on the projects
+        //the button on appears when you click on each project
+    }
+    
+
     function addTasks(){
 
     }
 
-    function createTask(title, priority){
+    function createTask(){
 
 
     }
 
     function displayTasks(){
-        let activeProject = projects.getActiveProject();
-
-        if(activeProject === undefined){
-            tasksDiv.innerHTML = '';
-            return;
-        }
-
-        let list = activeProject.getTasks();
+        
     }
-
-    
-    
     const validatedField = false;
 
 
