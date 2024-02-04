@@ -57,24 +57,6 @@ const dom = (() => {
 
     }
 
-    function displayActiveProject(){
-        //this function is supposed to display a button to add projects when clicking on the projects
-        //the button on appears when you click on each project
-    }
-    
-
-    function addTasks(){
-
-    }
-
-    function createTask(){
-
-
-    }
-
-    function displayTasks(){
-        
-    }
     const validatedField = false;
 
 
