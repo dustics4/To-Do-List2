@@ -38,6 +38,10 @@ const dom = (() => {
                     const activeProject = projects.getActiveProject();
                     if(activeProject && e.target.id === activeProject.title){
                         const addTaskButton = document.createElement("button")
+                        addTaskButton.textContent = 'Add Task';
+                        addTaskButton.classList.add('add-task-btn');
+
+                        tasksDiv.appendChild(addTaskButton);
                     }
                 }
             });
