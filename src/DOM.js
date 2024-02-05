@@ -1,8 +1,7 @@
-import { project , projects } from "./project";
-import { tryingProject } from "./project";
+import { projects } from "./project";
 
 const dom = (() => {
-
+   
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
     const folderButtonClose = document.getElementById("folder-button-close");
@@ -27,16 +26,16 @@ const dom = (() => {
                 const projectTitle = e.target.previousElementSibling.id;
                 projects.removeProject(projectTitle);
                 e.target.parentElement.remove();
-                if(projectTitle === title){
-                    tasksDiv.innerHTML = '';
-                }
+                
+                
+                
             });
             
             
             newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
-                createTaskButton(title);
+                displayActiveProject(title);
             });
 
             return newP;
@@ -47,6 +46,7 @@ const dom = (() => {
         const existingTaskButton = document.querySelector('.task-button');
             if (existingTaskButton) {
                 existingTaskButton.remove(); // Remove the existing button if it exists
+                tasksDiv.innerHTML = '';
             }
         const taskDiv = document.createElement('div');
         taskDiv.classList.add('task-div');
@@ -61,6 +61,69 @@ const dom = (() => {
             // Handle task creation for the specific project
             console.log(`Creating task for project: ${projectTitle}`);
         });
+    }
+
+    function displayActiveProject(title) {
+        tasksDiv.innerHTML = "";
+
+        //Display the active project title 
+        const projectTitleHeading = document.createElement("h2");
+        projectTitleHeading.textContent = title;
+        tasksDiv.appendChild(projectTitleHeading);
+
+        //button to create new Tasks
+        const createTaskButton = document.createElement("button");
+        createTaskButton.textContent = "Create New Task";
+        tasksDiv.appendChild(createTaskButton);
+
+        createTaskButton.addEventListener("click", () => {
+            // Add code for creating new tasks within the active project
+        });
+
+
+        function handleProjectClick(projectElement, project) {
+            projectElement.addEventListener("click", () => {
+                tasksDiv.innerHTML = "";
+
+                displayActiveProject(project);
+
+               // Remove active class from all project elements
+                const projectElements = document.getElementsByClassName("project-btn");
+                for (let i = 0; i < projectElements.length; i++) {
+                projectElements[i].classList.remove("active");
+                }
+
+                // Add active class to the clicked project element
+                projectElement.classList.add("active");
+            });
+        }
+
+
+
+        function handleRemoveProjectClick(removeButton, projectElement) {
+            removeButton.addEventListener("click", () => {
+              // Remove the project from the UI
+              projectElement.remove();
+          
+              // Clear the tasksDiv
+              tasksDiv.innerHTML = "";
+            });
+          }
+
+        const projectElements = document.getElementsByClassName("project-btn"); 
+        const projectsList = projects.getProjectsList();
+        for (let i = 0; i < projectElements.length; i++) {
+        const project = projectsList[i];
+        handleProjectClick(projectElements[i], project);
+
+        const removeButtons = document.getElementsByClassName("trash-folder"); 
+        for (let i = 0; i < removeButtons.length; i++) {
+        const removeButton = removeButtons[i];
+        handleRemoveProjectClick(removeButton, projectElements[i]);
+}
+}
+
+
     }
 
     function displayProjects(){
