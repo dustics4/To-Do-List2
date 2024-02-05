@@ -42,29 +42,15 @@ const dom = (() => {
 
     }
 
-    function createTaskButton(projectTitle) {
-        const existingTaskButton = document.querySelector('.task-button');
-            if (existingTaskButton) {
-                existingTaskButton.remove(); // Remove the existing button if it exists
-                tasksDiv.innerHTML = '';
-            }
-        const taskDiv = document.createElement('div');
-        taskDiv.classList.add('task-div');
-        const taskButton = document.createElement('button');
-        taskButton.textContent = `Create Task for ${projectTitle}`;
-        taskButton.classList.add('task-button');
-        taskDiv.appendChild(taskButton);
-        tasksDiv.innerHTML = '';
-        tasksDiv.appendChild(taskDiv);
-    
-        taskButton.addEventListener('click', () => {
-            // Handle task creation for the specific project
-            console.log(`Creating task for project: ${projectTitle}`);
-        });
-    }
-
     function displayActiveProject(title) {
         tasksDiv.innerHTML = "";
+
+        if(typeof title !== 'string'){
+            console.log("not string");
+            let titleNew = title.toString();
+            console.log(titleNew);
+            
+        }
 
         //Display the active project title 
         const projectTitleHeading = document.createElement("h2");
