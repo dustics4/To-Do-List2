@@ -42,21 +42,18 @@ const dom = (() => {
 
     }
 
-    function displayActiveProject(title) {
+    function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
 
-        if(typeof title !== 'string'){
-            console.log("not string");
-            let titleNew = title.toString();
-            console.log(titleNew);
-            
-        }
+        const title = project.title;
 
-        //Display the active project title 
+         //Display the active project title 
         const projectTitleHeading = document.createElement("h2");
         projectTitleHeading.textContent = title;
         tasksDiv.appendChild(projectTitleHeading);
 
+       
+       
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
         createTaskButton.textContent = "Create New Task";
