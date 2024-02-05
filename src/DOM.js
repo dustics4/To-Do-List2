@@ -83,13 +83,17 @@ const dom = (() => {
 
 
 
-        function handleRemoveProjectClick(removeButton, projectElement) {
+        function handleRemoveProjectClick(removeButton, projectElement, activeProject) {
             removeButton.addEventListener("click", () => {
-              // Remove the project from the UI
-              projectElement.remove();
+                const isCureentProject = projectElement.classList.contains("active");
+            
+                // Remove the project from the UI
+                projectElement.remove();
           
-              // Clear the tasksDiv
-              tasksDiv.innerHTML = "";
+                // Clear the tasksDiv
+                if(isCureentProject){
+                    tasksDiv.innerHTML = "";
+                }
             });
           }
 
