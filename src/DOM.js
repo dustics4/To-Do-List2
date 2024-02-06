@@ -52,8 +52,6 @@ const dom = (() => {
         projectTitleHeading.textContent = title;
         tasksDiv.appendChild(projectTitleHeading);
 
-       
-       
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
         createTaskButton.textContent = "Create New Task";
@@ -68,7 +66,7 @@ const dom = (() => {
             projectElement.addEventListener("click", () => {
                 tasksDiv.innerHTML = "";
 
-                displayActiveProject(project);
+                displayActiveProject(project);   
 
                // Remove active class from all project elements
                 const projectElements = document.getElementsByClassName("project-btn");
@@ -78,6 +76,7 @@ const dom = (() => {
 
                 // Add active class to the clicked project element
                 projectElement.classList.add("active");
+                
             });
         }
 
@@ -113,6 +112,7 @@ const dom = (() => {
 
     }
 
+    //function to display each project created
     function displayProjects(){
         let list = projects.getProjectsList();
         projectsDiv.innerHTML = "";
@@ -123,6 +123,7 @@ const dom = (() => {
     const validatedField = false;
 
 
+    //when clicking the submit button run these functions
     folderButtonSubmit.addEventListener('click', () =>{
         let title =  document.getElementById("folder-name").value;
         projects.projectsAppend(title);
@@ -132,7 +133,7 @@ const dom = (() => {
         clearInput();
     })
 
-
+    //clears the input inside the dialog
     function clearInput(){
         const title = document.getElementById("folder-name");
         title.value = '';
