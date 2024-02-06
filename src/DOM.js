@@ -1,13 +1,12 @@
-import { projects } from "./project";
+import { projects , project } from "./project";
 
 const dom = (() => {
-   
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
     const folderButtonClose = document.getElementById("folder-button-close");
     const folderDialogBox = document.getElementById("folder-dialog-box");
     const tasksDiv = document.getElementById("to-do-bodi");
-    const buttonSubmitTask = document.getElementByID("buttonSubmit");
+    const buttonSubmitTask = document.getElementById("buttonSubmit");
     const folderButtonRemove = document.getElementById("trash-folder");    
     const priorityButtons = document.getElementById("priority-type");
     
@@ -89,7 +88,7 @@ const dom = (() => {
 
         function handleRemoveProjectClick(removeButton, projectElement, activeProject) {
             removeButton.addEventListener("click", () => {
-                const isCureentProject = projectElement.classList.contains("active");
+                let isCureentProject = projectElement.classList.contains("active");
             
                 // Remove the project from the UI
                 projectElement.remove();
@@ -102,17 +101,17 @@ const dom = (() => {
           }
 
         //loop through project elements
-        const projectElements = document.getElementsByClassName("project-btn"); 
-        const projectsList = projects.getProjectsList();
+        let projectElements = document.getElementsByClassName("project-btn"); 
+        let projectsList = projects.getProjectsList();
         for (let i = 0; i < projectElements.length; i++) {
-        const project = projectsList[i];
+        let project = projectsList[i];
         handleProjectClick(projectElements[i], project);
         }
 
         //manages each remove button
-        const removeButtons = document.getElementsByClassName("trash-folder"); 
+        let removeButtons = document.getElementsByClassName("trash-folder"); 
         for (let i = 0; i < removeButtons.length; i++) {
-        const removeButton = removeButtons[i];
+        let removeButton = removeButtons[i];
         handleRemoveProjectClick(removeButton, projectElements[i]);
         }
     }
@@ -129,14 +128,16 @@ const dom = (() => {
     function addTask(){
         let title = document.getElementById('task-name').value;
         let details = document.getElementById('description').value;
-        let dueDate = document.getElementById('oldtaskDueDate').value;
+        let date = document.getElementById('oldtaskDueDate').value;
         let priority = document.getElementById('priority-type').value;
 
-        projects.getActiveProject().tasksAppend()(title,details,date,priority);
+        console.log(title,details,date,priority);
+        projects.getActiveProject().tasksAppend(title,details,date,priority);
     }
 
     //button which submits the tasks
     buttonSubmitTask.addEventListener('click' , () => {
+        console.log("click");
         addTask();
         console.log(addTask());
     })
