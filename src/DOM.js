@@ -96,12 +96,14 @@ const dom = (() => {
             });
           }
 
+        //loop through project elements
         const projectElements = document.getElementsByClassName("project-btn"); 
         const projectsList = projects.getProjectsList();
         for (let i = 0; i < projectElements.length; i++) {
         const project = projectsList[i];
         handleProjectClick(projectElements[i], project);
 
+        //manages each remove button
         const removeButtons = document.getElementsByClassName("trash-folder"); 
         for (let i = 0; i < removeButtons.length; i++) {
         const removeButton = removeButtons[i];
