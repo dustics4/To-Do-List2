@@ -7,7 +7,10 @@ const dom = (() => {
     const folderButtonClose = document.getElementById("folder-button-close");
     const folderDialogBox = document.getElementById("folder-dialog-box");
     const tasksDiv = document.getElementById("to-do-bodi");
+    const buttonSubmitTask = document.getElementByID("buttonSubmit");
     const folderButtonRemove = document.getElementById("trash-folder");    
+    const priorityButtons = document.getElementById("priority-type");
+    
 
     //function to createProject , takes in the title of project
     function createProject(title){
@@ -123,10 +126,21 @@ const dom = (() => {
 
     }
 
+    function addTask(){
+        let title = document.getElementById('task-name').value;
+        let details = document.getElementById('description').value;
+        let dueDate = document.getElementById('oldtaskDueDate').value;
+        let priority = document.getElementById('priority-type').value;
 
-    //create a function that takes input on clicking submit
+        projects.getActiveProject().tasksAppend()(title,details,date,priority);
+    }
 
-    
+    //button which submits the tasks
+    buttonSubmitTask.addEventListener('click' , () => {
+        addTask();
+        console.log(addTask());
+    })
+
     const validatedField = false;
     //when clicking the submit button run these functions
     folderButtonSubmit.addEventListener('click', () =>{
