@@ -54,11 +54,15 @@ const dom = (() => {
 
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
+        createTaskButton.classList.add("create-task-button");
         createTaskButton.textContent = "Create New Task";
         tasksDiv.appendChild(createTaskButton);
 
+        const taskDialogBox = document.getElementById("main-task-dialog-box")
+
         createTaskButton.addEventListener("click", () => {
             // Add code for creating new tasks within the active project
+            taskDialogBox.showModal();
         });
 
 
@@ -80,8 +84,6 @@ const dom = (() => {
             });
         }
 
-
-
         function handleRemoveProjectClick(removeButton, projectElement, activeProject) {
             removeButton.addEventListener("click", () => {
                 const isCureentProject = projectElement.classList.contains("active");
@@ -102,17 +104,16 @@ const dom = (() => {
         for (let i = 0; i < projectElements.length; i++) {
         const project = projectsList[i];
         handleProjectClick(projectElements[i], project);
+        }
 
         //manages each remove button
         const removeButtons = document.getElementsByClassName("trash-folder"); 
         for (let i = 0; i < removeButtons.length; i++) {
         const removeButton = removeButtons[i];
         handleRemoveProjectClick(removeButton, projectElements[i]);
-}
-}
-
-
+        }
     }
+
 
     //function to display each project created
     function displayProjects(){
@@ -122,9 +123,11 @@ const dom = (() => {
 
     }
 
+
+    //create a function that takes input on clicking submit
+
+    
     const validatedField = false;
-
-
     //when clicking the submit button run these functions
     folderButtonSubmit.addEventListener('click', () =>{
         let title =  document.getElementById("folder-name").value;
