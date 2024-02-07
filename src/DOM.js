@@ -129,9 +129,10 @@ const dom = (() => {
         let title = document.getElementById('task-name').value;
         let details = document.getElementById('description').value;
         let date = document.getElementById('oldtaskDueDate').value;
-        let priority = document.getElementById('priority-type').value;
+        let select = document.getElementById('priority-type');
+        let priority = select.options[select.selectedIndex].value;
 
-        console.log(title,details,date,priority);
+        console.log(title,details,date,);
         projects.getActiveProject().tasksAppend(title,details,date,priority);
     }
 
