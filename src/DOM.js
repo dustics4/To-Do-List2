@@ -67,6 +67,14 @@ const dom = (() => {
             taskDialogBox.showModal();
         });
 
+        //button which submits the tasks
+        buttonSubmitTask.addEventListener('click' , () => {
+        console.log("click");
+        addTask();
+        //run create tasks function - takes title
+        //run displayTasks function
+        })
+
 
         function handleProjectClick(projectElement, project) {
             projectElement.addEventListener("click", () => {
@@ -142,18 +150,23 @@ const dom = (() => {
         }
     }
     
-    function createTask(){
+    function createTask(title, priority){
+        const newT = document.createElement('div');
+        newT.classList.add('card');
+        newT.classList.add(`${priority}`);
+        newT.innerHTML = `
+        <h4><button class="tick"><i class="fa-regular fa-circle"></i></button>${title}</h4>
+        <div class="card-buttons">
+            <button><i class="circle-info"></i></button>
+            <button><i class="pen-to-square"></i></button>
+            <button><i class="task-remove"></i></button>
+        </div>
+        `
 
+        return newT;
     }
 
-    //button which submits the tasks
-    buttonSubmitTask.addEventListener('click' , () => {
-        console.log("click");
-        addTask();
-        console.log(addTask());
-        //run create tasks function - takes title
-        //run displayTasks function
-    })
+    
 
     const validatedField = false;
     //when clicking the submit button run these functions
