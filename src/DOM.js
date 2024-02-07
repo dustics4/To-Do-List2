@@ -73,7 +73,7 @@ const dom = (() => {
                 tasksDiv.innerHTML = "";
 
                 displayActiveProject(project);   
-
+                projects.getActiveProject(project);
                // Remove active class from all project elements
                 const projectElements = document.getElementsByClassName("project-btn");
                 for (let i = 0; i < projectElements.length; i++) {
@@ -131,9 +131,19 @@ const dom = (() => {
         let date = document.getElementById('oldtaskDueDate').value;
         let priority = document.getElementById('priority-type').value;
        
-
-        console.log(title,details,date, `${priority}`);
         projects.getActiveProject().tasksAppend(title,details,date,priority);
+        console.log(projects.getActiveProject().tasksAppend(title,details,date,priority));
+        
+        let activeProjects = projects.getActiveProject();
+
+        if(activeProjects = undefined){
+            tasksDiv.innerHTML = "";
+            return
+        }
+    }
+    
+    function createTask(){
+
     }
 
     //button which submits the tasks
@@ -141,6 +151,8 @@ const dom = (() => {
         console.log("click");
         addTask();
         console.log(addTask());
+        //run create tasks function - takes title
+        //run displayTasks function
     })
 
     const validatedField = false;
