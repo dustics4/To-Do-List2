@@ -75,6 +75,7 @@ const dom = (() => {
 
                 displayActiveProject(project);   
                 projects.getActiveProject(project);
+               ;
                // Remove active class from all project elements
                 const projectElements = document.getElementsByClassName("project-btn");
                 for (let i = 0; i < projectElements.length; i++) {
@@ -83,7 +84,7 @@ const dom = (() => {
 
                 // Add active class to the clicked project element
                 projectElement.classList.add("active");
-
+                displayTasks()
             });
         }
 
