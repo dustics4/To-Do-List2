@@ -171,6 +171,12 @@ const dom = (() => {
             addTaskButton.innerHTML = 'Add task';
         
             tasksDiv.appendChild(addTaskButton);
+
+            addTaskButton.addEventListener("click", (e) => {
+                const taskDialogBox = document.getElementById("main-task-dialog-box");
+                e.preventDefault();
+                taskDialogBox.showModal();
+            })
         }else{
             tasksDiv.innerHTML = "";
             console.log("no active tasks");
@@ -182,13 +188,19 @@ const dom = (() => {
     //button which submits the tasks
     buttonSubmitTask.addEventListener('click' , () => {
         let title = document.getElementById('task-name').value;
+        const taskDialogBox = document.getElementById("main-task-dialog-box");
         console.log("click");
         addTask();
         createTask(title);
         displayTasks();
-        //run create tasks function - takes title
-        //run displayTasks function
-        })
+        taskDialogBox.close();
+        clearTaskInput();
+            //run create tasks function - takes title
+            //run displayTasks function
+    })
+
+   
+   
 
  /*************** TASKS AREA FINISH **********************************************/ 
 
@@ -206,7 +218,20 @@ const dom = (() => {
     //clears the input inside the dialog
     function clearInput(){
         const title = document.getElementById("folder-name");
+        
         title.value = '';
+    }
+
+    function clearTaskInput(){
+        let taskTitle = document.getElementById('task-name');
+        let details = document.getElementById('description');
+        let date = document.getElementById('oldtaskDueDate');
+        let priority = document.getElementById('priority-type');
+
+        taskTitle.value = '';
+        details.value = '';
+        date.value = '';
+        priority.value = '';
     }
     
     return {
