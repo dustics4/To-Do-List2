@@ -10,7 +10,7 @@ const dom = (() => {
     const folderButtonRemove = document.getElementById("trash-folder");    
     const priorityButtons = document.getElementById("priority-type");
     
-
+    /*************** PROJECT AREA START **********************************************/ 
     //function to createProject , takes in the title of project
     function createProject(title){
             const newP = document.createElement('div');
@@ -132,7 +132,9 @@ const dom = (() => {
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
 
     }
+    /*************** PROJECT AREA FINISH **********************************************/ 
 
+    /*************** TASKS AREA START **********************************************/ 
     function addTask(){
         let title = document.getElementById('task-name').value;
         let details = document.getElementById('description').value;
@@ -166,7 +168,10 @@ const dom = (() => {
         return newT;
     }
 
-    
+    function displayTasks(){
+
+    }
+ /*************** TASKS AREA FINISH **********************************************/ 
 
     const validatedField = false;
     //when clicking the submit button run these functions
