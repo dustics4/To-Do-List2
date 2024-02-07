@@ -167,8 +167,8 @@ const dom = (() => {
             list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
 
             let addTaskButton = document.createElement('button');
-            addTaskButton.className = 'add-task';
-            addTaskButton.innerHTML = 'Add task';
+            addTaskButton.className = 'create-task-button';
+            addTaskButton.innerHTML = 'Create New Task';
         
             tasksDiv.appendChild(addTaskButton);
 
