@@ -47,7 +47,7 @@ const dom = (() => {
     function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
 
-        const title = project.title;
+        let title = project.title;
 
          //Display the active project title 
         const projectTitleHeading = document.createElement("h2");
@@ -71,6 +71,8 @@ const dom = (() => {
         buttonSubmitTask.addEventListener('click' , () => {
         console.log("click");
         addTask();
+        createTask(title);
+        displayTasks();
         //run create tasks function - takes title
         //run displayTasks function
         })
@@ -144,12 +146,7 @@ const dom = (() => {
         projects.getActiveProject().tasksAppend(title,details,date,priority);
         console.log(projects.getActiveProject().tasksAppend(title,details,date,priority));
         
-        let activeProjects = projects.getActiveProject();
-
-        if(activeProjects = undefined){
-            tasksDiv.innerHTML = "";
-            return
-        }
+        
     }
     
     function createTask(title, priority){
@@ -159,9 +156,9 @@ const dom = (() => {
         newT.innerHTML = `
         <h4><button class="tick"><i class="fa-regular fa-circle"></i></button>${title}</h4>
         <div class="card-buttons">
-            <button><i class="circle-info"></i></button>
-            <button><i class="pen-to-square"></i></button>
-            <button><i class="task-remove"></i></button>
+            <button><i class="circle-info">info</i></button>
+            <button><i class="pen-to-square">edit</i></button>
+            <button><i class="task-remove">remove</i></button>
         </div>
         `
 
@@ -169,7 +166,15 @@ const dom = (() => {
     }
 
     function displayTasks(){
+        let activeProjects = projects.getActiveProject();
 
+        if(activeProjects = undefined){
+            tasksDiv.innerHTML = "";
+            return
+        }
+
+        let list = projects.getActiveProject().getTasks();
+        list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
     }
  /*************** TASKS AREA FINISH **********************************************/ 
 
