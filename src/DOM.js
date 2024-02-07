@@ -67,16 +67,7 @@ const dom = (() => {
             taskDialogBox.showModal();
         });
 
-        //button which submits the tasks
-        buttonSubmitTask.addEventListener('click' , () => {
-        console.log("click");
-        addTask();
-        createTask(title);
-        displayTasks();
-        //run create tasks function - takes title
-        //run displayTasks function
-        })
-
+        
 
         function handleProjectClick(projectElement, project) {
             projectElement.addEventListener("click", () => {
@@ -92,7 +83,7 @@ const dom = (() => {
 
                 // Add active class to the clicked project element
                 projectElement.classList.add("active");
-                
+
             });
         }
 
@@ -142,11 +133,13 @@ const dom = (() => {
         let details = document.getElementById('description').value;
         let date = document.getElementById('oldtaskDueDate').value;
         let priority = document.getElementById('priority-type').value;
-       
-        projects.getActiveProject().tasksAppend(title,details,date,priority);
-        console.log(projects.getActiveProject().tasksAppend(title,details,date,priority));
         
-        
+        let activeProject = projects.getActiveProject();
+        if (activeProject) {
+           activeProject.tasksAppend(title, details, date, priority);
+           displayTasks(); // Update the displayed tasks after adding a new task
+        }
+
     }
     
     function createTask(title, priority){
@@ -168,14 +161,35 @@ const dom = (() => {
     function displayTasks(){
         let activeProjects = projects.getActiveProject();
 
-        if(activeProjects = undefined){
+        if(activeProjects !== undefined){
+            let list = activeProjects.getTasks();
             tasksDiv.innerHTML = "";
-            return
+            list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
+
+            let addTaskButton = document.createElement('button');
+            addTaskButton.className = 'add-task';
+            addTaskButton.innerHTML = 'Add task';
+        
+            tasksDiv.appendChild(addTaskButton);
+        }else{
+            tasksDiv.innerHTML = "";
+            console.log("no active tasks");
         }
 
-        let list = projects.getActiveProject().getTasks();
-        list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
+        
     }
+
+    //button which submits the tasks
+    buttonSubmitTask.addEventListener('click' , () => {
+        let title = document.getElementById('task-name').value;
+        console.log("click");
+        addTask();
+        createTask(title);
+        displayTasks();
+        //run create tasks function - takes title
+        //run displayTasks function
+        })
+
  /*************** TASKS AREA FINISH **********************************************/ 
 
     const validatedField = false;
