@@ -12,8 +12,8 @@ const dom = (() => {
     
     /*************** PROJECT AREA START **********************************************/ 
     //function to createProject , takes in the title of project
+
     function createProject(title){
-            
             const newP = document.createElement('div');
             newP.classList.add('folder-title-area');
             newP.innerHTML = `
