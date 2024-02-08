@@ -114,6 +114,43 @@
 .to-do-container {
   padding-top: 20px;
   padding-left: 100px;
+  width: 100%;
+  padding-right: 100px;
+}
+
+  /*----- Tasks Area   ------ */
+
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-style:solid;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  background-color: #d6d6d6;
+}
+
+.card h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  padding-left: 10px;
+  
+}
+
+.tick {
+  margin-right: 20px;
+  border-radius: 12px;
+}
+
+.card-buttons {
+  padding: 20px 20px;
+  justify-content:center;
+  align-items: center;
 }
 
   /*----- button ------ */
@@ -133,10 +170,9 @@ button:hover {
 .trash-folder {
   background-color: #ff7676;
   font-weight: 800;
-  padding: 10px 15px;
-  font-size: 15px;
+  height: 40px;
+  font-size: 13px;
   margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 .trash-folder:hover {
