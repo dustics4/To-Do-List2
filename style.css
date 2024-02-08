@@ -59,12 +59,9 @@
   }
 
   /*----- Body Content ------ */
-  .container {
-    height: 100vh;
-  }
+
   .body-content{
-    height: 82vh;
-  
+    height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: start;
