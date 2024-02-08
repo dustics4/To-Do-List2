@@ -13,6 +13,7 @@ const dom = (() => {
     /*************** PROJECT AREA START **********************************************/ 
     //function to createProject , takes in the title of project
     function createProject(title){
+            
             const newP = document.createElement('div');
             newP.classList.add('folder-title-area');
             newP.innerHTML = `
@@ -44,6 +45,14 @@ const dom = (() => {
 
     }
 
+    function addTaskToProject(projectId, taskTitle, taskDetails){
+        let project = projects.find(project => project.id === projectId)
+        if(project) {
+            let newTask = newTask(taskTitle, taskDetails)
+            project.task.push(newTask);
+        }
+    }
+
     function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
 
@@ -73,9 +82,11 @@ const dom = (() => {
             projectElement.addEventListener("click", () => {
                 tasksDiv.innerHTML = "";
 
+                let title = project.title;
                 displayActiveProject(project);   
                 projects.getActiveProject(project);
 
+                //issue here. Only saves it to the first project created
                 let activeProject = projects.getActiveProject(project);
                 if(activeProject === project){
                     displayTasks();

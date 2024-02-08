@@ -8,7 +8,7 @@ export const task = (title, details, date, priority) => {
   }
 }
 
-export const project = (title) => {
+export const project = (title, id) => {
   let tasks = [];
   let active = false;
 
@@ -39,6 +39,7 @@ export const project = (title) => {
 
   return {
       title,
+      id,
       tasksAppend,
       removeTask,
       getTasks,
@@ -51,8 +52,8 @@ export const project = (title) => {
 export const projects = (() => {
   let projectsList = [];
 
-  function projectsAppend(title) {
-      const newProject = project(title);
+  function projectsAppend(title,id) {
+      const newProject = project(title,id);
       projectsList.push(newProject);
       console.log(newProject);
   }
