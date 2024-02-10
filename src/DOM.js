@@ -34,24 +34,26 @@ const dom = (() => {
                 
             });
             
-            
-            newP.querySelector(".project-btn").addEventListener("click", (e) => {
+            /*newP.querySelector(".project-btn").addEventListener("click", (e) => {
                 e.preventDefault();
                 console.log('click');
                 displayActiveProject(title);
-            });
+            });*/
+           
 
             return newP;
 
     }
 
-    function addTaskToProject(projectId, taskTitle, taskDetails){
-        let project = projects.find(project => project.id === projectId)
-        if(project) {
-            let newTask = newTask(taskTitle, taskDetails)
-            project.task.push(newTask);
+    projectsDiv.addEventListener("click", (e) => {
+        const targetProjectButton = e.target.closest(".project-btn");
+        if (targetProjectButton) {
+            const title = targetProjectButton.id;
+            displayActiveProject(title);
+            console.log("click");
         }
-    }
+    });
+
 
     function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
@@ -76,65 +78,6 @@ const dom = (() => {
             taskDialogBox.showModal();
         });
 
-        
-
-        function handleProjectClick(projectElement, project) {
-            projectElement.addEventListener("click", () => {
-                tasksDiv.innerHTML = "";
-
-                let title = project.title;
-                displayActiveProject(project);   
-                projects.getActiveProject(project);
-
-                //issue here. Only saves it to the first project created
-                let activeProject = projects.getActiveProject(project);
-                if(activeProject === project){
-                    displayTasks();
-                }else{
-                   
-                }
-               
-               // Remove active class from all project elements
-                const projectElements = document.getElementsByClassName("project-btn");
-                for (let i = 0; i < projectElements.length; i++) {
-                projectElements[i].classList.remove("active");
-                }
-
-                // Add active class to the clicked project element
-                projectElement.classList.add("active");
-
-                
-            });
-        }
-
-        function handleRemoveProjectClick(removeButton, projectElement, activeProject) {
-            removeButton.addEventListener("click", () => {
-                let isCureentProject = projectElement.classList.contains("active");
-            
-                // Remove the project from the UI
-                projectElement.remove();
-          
-                // Clear the tasksDiv
-                if(isCureentProject){
-                    tasksDiv.innerHTML = "";
-                }
-            });
-          }
-
-        //loop through project elements
-        let projectElements = document.getElementsByClassName("project-btn"); 
-        let projectsList = projects.getProjectsList();
-        for (let i = 0; i < projectElements.length; i++) {
-        let project = projectsList[i];
-        handleProjectClick(projectElements[i], project);
-        }
-
-        //manages each remove button
-        let removeButtons = document.getElementsByClassName("trash-folder"); 
-        for (let i = 0; i < removeButtons.length; i++) {
-        let removeButton = removeButtons[i];
-        handleRemoveProjectClick(removeButton, projectElements[i]);
-        }
     }
 
 
@@ -148,6 +91,18 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
+    function addTaskToProject(projectTitle, task){
+        const project = projects.getProject(projectTitle);
+        if(project){
+            project.tasksAppend(task.title, task.details, task.date , task.priority);
+        }
+    }
+
+    function getTasksOfProject(projectTitle){
+        const project = projects.getProject(projectTitle);
+        return project ? project.getTasks() : [];
+    }
+
     function addTask(){
         let title = document.getElementById('task-name').value;
         let details = document.getElementById('description').value;
