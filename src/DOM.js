@@ -1,6 +1,8 @@
 import { projects , project } from "./project";
 
 const dom = (() => {
+
+    let activeProjectTitle = null;
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
     const folderButtonClose = document.getElementById("folder-button-close");
@@ -49,6 +51,7 @@ const dom = (() => {
         const targetProjectButton = e.target.closest(".project-btn");
         if (targetProjectButton) {
             const title = targetProjectButton.id;
+            activeProjectTitle = title;
             displayActiveProject(title);
             console.log("click");
         }
@@ -78,6 +81,13 @@ const dom = (() => {
             taskDialogBox.showModal();
         });
 
+        let tasks = getTasksOfProject(project);
+         // Display tasks
+        tasks.forEach(task => {
+            const taskElement = createTask(task.title, task.priority); // Assuming createTask function is defined elsewhere
+            tasksDiv.appendChild(taskElement);
+        });
+        
     }
 
 
@@ -91,10 +101,18 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
-    function addTaskToProject(projectTitle, task){
+   /* function addTaskToProject(projectTitle, task){
         const project = projects.getProject(projectTitle);
         if(project){
             project.tasksAppend(task.title, task.details, task.date , task.priority);
+        }
+    }*/
+
+    function addTaskToProject(task){
+        if(activeProjectTitle){
+            addTask(activeProjectTitle, task);
+        }else{
+            console.log("No active project selected");
         }
     }
 
@@ -103,8 +121,14 @@ const dom = (() => {
         return project ? project.getTasks() : [];
     }
 
-    function addTask(){
-        let title = document.getElementById('task-name').value;
+    function addTask(projectTitle, task){
+        const project = projects.getProject(projectTitle);
+        if (project) {
+            project.tasksAppend(task.title, task.details, task.date, task.priority);
+        } else {
+            console.error(`Project "${projectTitle}" not found.`);
+        }
+        /*let title = document.getElementById('task-name').value;
         let details = document.getElementById('description').value;
         let date = document.getElementById('oldtaskDueDate').value;
         let priority = document.getElementById('priority-type').value;
@@ -113,10 +137,11 @@ const dom = (() => {
         if (activeProject) {
            activeProject.tasksAppend(title, details, date, priority);
            displayTasks(); // Update the displayed tasks after adding a new task
-        }
+        }*/
 
     }
     
+
     function createTask(title, priority){
         const newT = document.createElement('div');
         newT.classList.add('card');
@@ -165,7 +190,8 @@ const dom = (() => {
         let title = document.getElementById('task-name').value;
         const taskDialogBox = document.getElementById("main-task-dialog-box");
         console.log("click");
-        addTask();
+        //addTask();
+        addTaskToProject({title});
         createTask(title);
         displayTasks();
         taskDialogBox.close();
