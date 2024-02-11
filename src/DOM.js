@@ -115,17 +115,6 @@ const dom = (() => {
         } else {
             console.error(`Project "${projectTitle}" not found.`);
         }
-        /*let title = document.getElementById('task-name').value;
-        let details = document.getElementById('description').value;
-        let date = document.getElementById('oldtaskDueDate').value;
-        let priority = document.getElementById('priority-type').value;
-        
-        let activeProject = projects.getActiveProject();
-        if (activeProject) {
-           activeProject.tasksAppend(title, details, date, priority);
-           displayTasks(); // Update the displayed tasks after adding a new task
-        }*/
-
     }
     
 
