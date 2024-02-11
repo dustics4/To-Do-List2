@@ -35,14 +35,6 @@ const dom = (() => {
                 
                 
             });
-            
-            /*newP.querySelector(".project-btn").addEventListener("click", (e) => {
-                e.preventDefault();
-                console.log('click');
-                displayActiveProject(title);
-            });*/
-           
-
             return newP;
 
     }
@@ -68,6 +60,14 @@ const dom = (() => {
         projectTitleHeading.textContent = title;
         tasksDiv.appendChild(projectTitleHeading);
 
+        //Display tasks
+        let tasks = getTasksOfProject(project);
+         // Display tasks
+        tasks.forEach(task => {
+            const taskElement = createTask(task.title, task.priority); // Assuming createTask function is defined elsewhere
+            tasksDiv.appendChild(taskElement);
+        });
+
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
         createTaskButton.classList.add("create-task-button");
@@ -81,15 +81,9 @@ const dom = (() => {
             taskDialogBox.showModal();
         });
 
-        let tasks = getTasksOfProject(project);
-         // Display tasks
-        tasks.forEach(task => {
-            const taskElement = createTask(task.title, task.priority); // Assuming createTask function is defined elsewhere
-            tasksDiv.appendChild(taskElement);
-        });
+        
         
     }
-
 
     //function to display each project created
     function displayProjects(){
