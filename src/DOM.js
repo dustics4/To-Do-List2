@@ -22,22 +22,23 @@ const dom = (() => {
             <button class="project-btn" id="${title}">${title}</button>
             <button class="trash-folder" id="trash-folder">X</button>
             `
-            //When the .trash-folder button is clicked, it retrieves the project title from the sibling button (.project-btn) using e.target.previousElementSibling.id.
-            //It then calls projects.removeProject(projectTitle) to remove the project from the projectsList array.
-            //Finally, it removes the parent element from the DOM using e.target.parentElement.remove().
-            newP.querySelector(".trash-folder").addEventListener("click", (e) => {
-                e.preventDefault();
-                console.log("click");
-                const projectTitle = e.target.previousElementSibling.id;
-                projects.removeProject(projectTitle);
-                e.target.parentElement.remove();
-                
-                
-                
-            });
+            
             return newP;
 
     }
+
+    projectsDiv.addEventListener("click", (e) => {
+        const removeButton = e.target.closest(".trash-folder");
+        if (removeButton) {
+            const projectElement = removeButton.parentElement;
+            const projectTitle = projectElement.querySelector(".project-btn").id;
+            projects.removeProject(projectTitle);
+            projectElement.remove(); // Remove the project element immediately
+            if (projectTitle === activeProjectTitle) {
+                tasksDiv.innerHTML = ""; // Clear tasksDiv if the removed project was active
+            }
+        }
+    })
 
     projectsDiv.addEventListener("click", (e) => {
         const targetProjectButton = e.target.closest(".project-btn");
@@ -48,6 +49,17 @@ const dom = (() => {
             console.log("click");
         }
     });
+
+    function handleRemoveProjectClick(removeButton , projectElement, activeProjectTitle){
+        removeButton.addEventListener("click", (e) => {
+            const projectTitle = projectElement.querySelector(".project-btn").id;
+            const isCurrentProject = projectTitle === activeProjectTitle;
+            projectElement.remove();
+            if(isCurrentProject){
+                tasksDiv.innerHTML = "";
+            }
+        })
+    }
 
     //function to display the activeProject
     function displayActiveProject(project) {
