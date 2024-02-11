@@ -49,7 +49,7 @@ const dom = (() => {
         }
     });
 
-
+    //function to display the activeProject
     function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
 
@@ -95,13 +95,6 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
-   /* function addTaskToProject(projectTitle, task){
-        const project = projects.getProject(projectTitle);
-        if(project){
-            project.tasksAppend(task.title, task.details, task.date , task.priority);
-        }
-    }*/
-
     function addTaskToProject(task){
         if(activeProjectTitle){
             addTask(activeProjectTitle, task);
