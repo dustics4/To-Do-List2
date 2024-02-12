@@ -78,7 +78,11 @@ const dom = (() => {
 
         createTaskButton.addEventListener("click", () => {
             // Add code for creating new tasks within the active project
-            taskDialogBox.showModal();
+            if(activeProjectTitle){
+                taskDialogBox.showModal();
+            }else {
+                console.log("No active project selected");
+            }
         });
 
         
@@ -95,9 +99,9 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
-    function addTaskToProject(task){
-        if(activeProjectTitle){
-            addTask(activeProjectTitle, task);
+    function addTaskToProject(projectTitle, task){
+        if(projectTitle){
+            addTask(projectTitle, task);
         }else{
             console.log("No active project selected");
         }
@@ -135,7 +139,7 @@ const dom = (() => {
     }
 
     function displayTasks(){
-        let activeProjects = projects.getActiveProject();
+        let activeProjects = projects.getActiveProject(activeProjectTitle);
 
         if(activeProjects !== undefined){
             let list = activeProjects.getTasks();
@@ -167,7 +171,7 @@ const dom = (() => {
         const taskDialogBox = document.getElementById("main-task-dialog-box");
         console.log("click");
         //addTask();
-        addTaskToProject({title});
+        addTaskToProject(activeProjectTitle, {title});
         createTask(title);
         displayTasks();
         taskDialogBox.close();

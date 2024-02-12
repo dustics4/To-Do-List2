@@ -51,6 +51,7 @@ export const project = (title, id) => {
 
 export const projects = (() => {
   let projectsList = [];
+  let active = false;
 
   function projectsAppend(title,id) {
       const newProject = project(title,id);
@@ -76,11 +77,23 @@ export const projects = (() => {
   }
 
   function getActiveProject() {
-      return projectsList.find(project => project.getActive() === false);
+      return projectsList.find(project => project.getActive() === true);
+  }
+
+  function setActive(activeState){
+    active = activeState;
+  }
+  
+  function setActiveProject(projectTitle){
+    projectsList.forEach(project => {
+        projects.setActive(project.title === projectTitle);
+    })
   }
 
 
   return {
+    setActiveProject,
+    setActive,
         projectsList,
       projectsAppend,
       getProjectsList,
