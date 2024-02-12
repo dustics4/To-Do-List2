@@ -22,7 +22,6 @@ const dom = (() => {
             <button class="project-btn" id="${title}">${title}</button>
             <button class="trash-folder" id="trash-folder">X</button>
             `
-            
             return newP;
 
     }
@@ -49,17 +48,6 @@ const dom = (() => {
             console.log("click");
         }
     });
-
-    function handleRemoveProjectClick(removeButton , projectElement, activeProjectTitle){
-        removeButton.addEventListener("click", (e) => {
-            const projectTitle = projectElement.querySelector(".project-btn").id;
-            const isCurrentProject = projectTitle === activeProjectTitle;
-            projectElement.remove();
-            if(isCurrentProject){
-                tasksDiv.innerHTML = "";
-            }
-        })
-    }
 
     //function to display the activeProject
     function displayActiveProject(project) {
