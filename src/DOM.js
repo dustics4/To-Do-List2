@@ -140,10 +140,11 @@ const dom = (() => {
 
     function displayTasks(){
         let activeProjects = projects.getActiveProject(activeProjectTitle);
-
+        console.log(activeProjects);
         if(activeProjects){
-            tasksDiv.innerHTML = "";
             let list = activeProjects.getTasks();
+
+            if(list.length > 0){
             tasksDiv.innerHTML = "";
             list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
 
@@ -158,9 +159,12 @@ const dom = (() => {
                 e.preventDefault();
                 taskDialogBox.showModal();
             })
-        }else{
-            console.log("no active tasks");
         }
+        } else {
+            console.log("no active project"); // Log if there is no active project
+        }
+            
+        
 
         
     }
@@ -170,12 +174,17 @@ const dom = (() => {
         let title = document.getElementById('task-name').value;
         const taskDialogBox = document.getElementById("main-task-dialog-box");
         console.log("click");
-        addTaskToProject(activeProjectTitle, {title});
-        projects.setActiveProject(activeProjectTitle);
-        createTask(title);
-        displayTasks();
-        taskDialogBox.close();
-        clearTaskInput();
+        if(activeProjectTitle){
+            addTaskToProject(activeProjectTitle, {title});
+            projects.setActiveProject(activeProjectTitle);
+            createTask(title);
+            displayTasks();
+            taskDialogBox.close();
+            clearTaskInput();
+        }else{
+            console.log("no active project selected");
+        }
+        
             //run create tasks function - takes title
             //run displayTasks function
     })
@@ -190,10 +199,10 @@ const dom = (() => {
     folderButtonSubmit.addEventListener('click', () =>{
         let title =  document.getElementById("folder-name").value;
         projects.projectsAppend(title);
-        projects.setActive(title);
+        projects.setActiveProject(title);
         activeProjectTitle = title;
-        createProject(title);
         displayProjects();
+        createProject(title);
 
         folderDialogBox.close();
         clearInput();

@@ -33,8 +33,8 @@ export const project = (title, id) => {
       return active;
   }
 
-  function updateActive() {
-      active = !active; 
+  function updateActive(activeState) {
+      active = activeState; 
   }
 
   return {
@@ -86,7 +86,12 @@ export const projects = (() => {
   
   function setActiveProject(projectTitle){
     projectsList.forEach(project => {
-        projects.setActive(project.title === projectTitle);
+        if(project.title === projectTitle){
+            project.updateActive(true);
+        }else{
+            project.updateActive(false);
+        }
+
     })
   }
 
