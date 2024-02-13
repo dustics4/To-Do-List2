@@ -1,4 +1,4 @@
-import { projects , project } from "./project";
+import { projects , project, task } from "./project";
 
 const dom = (() => {
 
@@ -141,7 +141,8 @@ const dom = (() => {
     function displayTasks(){
         let activeProjects = projects.getActiveProject(activeProjectTitle);
 
-        if(activeProjects !== undefined){
+        if(activeProjects){
+            tasksDiv.innerHTML = "";
             let list = activeProjects.getTasks();
             tasksDiv.innerHTML = "";
             list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
@@ -158,7 +159,6 @@ const dom = (() => {
                 taskDialogBox.showModal();
             })
         }else{
-            tasksDiv.innerHTML = "";
             console.log("no active tasks");
         }
 
@@ -170,8 +170,8 @@ const dom = (() => {
         let title = document.getElementById('task-name').value;
         const taskDialogBox = document.getElementById("main-task-dialog-box");
         console.log("click");
-        //addTask();
         addTaskToProject(activeProjectTitle, {title});
+        projects.setActiveProject(activeProjectTitle);
         createTask(title);
         displayTasks();
         taskDialogBox.close();
@@ -190,8 +190,11 @@ const dom = (() => {
     folderButtonSubmit.addEventListener('click', () =>{
         let title =  document.getElementById("folder-name").value;
         projects.projectsAppend(title);
+        projects.setActive(title);
+        activeProjectTitle = title;
         createProject(title);
         displayProjects();
+
         folderDialogBox.close();
         clearInput();
     })
