@@ -1,4 +1,5 @@
 import { projects , project, task } from "./project";
+import Storage from "./storage";
 
 const dom = (() => {
 
