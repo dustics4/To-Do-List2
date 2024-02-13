@@ -53,13 +53,6 @@ const dom = (() => {
     function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
 
-        let title = project.title;
-
-         //Display the active project title 
-        const projectTitleHeading = document.createElement("h2");
-        projectTitleHeading.textContent = title;
-        tasksDiv.appendChild(projectTitleHeading);
-
         //Display tasks
         let tasks = getTasksOfProject(project);
          // Display tasks
