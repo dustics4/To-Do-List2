@@ -137,13 +137,24 @@ const dom = (() => {
         if(!targeTask) return;
         const taskTitle = targetTask.querySelector('h4').textContent;
 
-        
+        if(e.target.classList.contains('circle-info')){
+            displayTaskInformation(taskTitle);
+        };
+
     })
 
     function displayTaskInformation(taskTitle){
         const task = projects.getActiveProject().getTask(taskTitle);
 
         const taskInfoDialog = document.createElement('dialog');
+        taskInfoDialog.innerHTML = `
+        <h2> Task Information </h2>
+        <p><strong>Title : </strong> ${task.title} </p>
+        <p><strong>Description : </strong> ${task.details} </p>
+        <p><strong>Date : </strong> ${task.date} </p>
+        <p><strong>Priority : </strong> ${task.priority} </p>
+        <button class="close-button">Close</button>
+        `
     }
 
     function displayTasks(){
