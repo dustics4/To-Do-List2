@@ -15,6 +15,7 @@ export const project = (title, id) => {
   function tasksAppend(title, details, date, priority) {
       const newTask = task(title, details, date, priority);
       tasks.push(newTask);
+      console.log(tasks);
   }
 
   function removeTask(removedTask) {
@@ -22,6 +23,7 @@ export const project = (title, id) => {
   }
 
   function getTasks() {
+        console.log(tasks);
       return tasks;
   }
 

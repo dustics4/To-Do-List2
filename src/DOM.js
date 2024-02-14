@@ -93,13 +93,7 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
-    function addTaskToProject(projectTitle, task){
-        if(projectTitle){
-            addTask(projectTitle, task);
-        }else{
-            console.log("No active project selected");
-        }
-    }
+
 
     function getTasksOfProject(projectTitle){
         const project = projects.getProject(projectTitle);
@@ -107,11 +101,21 @@ const dom = (() => {
     }
 
     function addTask(projectTitle, task){
+        console.log("Adding task to project:", task);
         const project = projects.getProject(projectTitle);
         if (project) {
             project.tasksAppend(task.title, task.details, task.date, task.priority);
         } else {
             console.error(`Project "${projectTitle}" not found.`);
+        }
+    }
+
+    function addTaskToProject(projectTitle, task){
+        if(projectTitle){
+            addTask(projectTitle, task);
+            displayTasks();
+        }else{
+            console.log("No active project selected");
         }
     }
     
@@ -133,8 +137,8 @@ const dom = (() => {
     }
 
     tasksDiv.addEventListener("click", (e) => {
-        const targeTask = e.target.closes('.card');
-        if(!targeTask) return;
+        const targetTask = e.target.closest('.card');
+        if(!targetTask) return;
         const taskTitle = targetTask.querySelector('h4').textContent;
 
         if(e.target.classList.contains('circle-info')){
@@ -149,12 +153,22 @@ const dom = (() => {
         const taskInfoDialog = document.createElement('dialog');
         taskInfoDialog.innerHTML = `
         <h2> Task Information </h2>
-        <p><strong>Title : </strong> ${task.title} </p>
+        <p><strong>Title : </strong> ${task.title}</p>
         <p><strong>Description : </strong> ${task.details} </p>
         <p><strong>Date : </strong> ${task.date} </p>
         <p><strong>Priority : </strong> ${task.priority} </p>
         <button class="close-button">Close</button>
         `
+
+        document.body.appendChild(taskInfoDialog);
+
+        taskInfoDialog.showModal();
+
+        const closeButton = taskInfoDialog.querySelector('.close-button');
+        closeButton.addEventListener("click", () => {
+            taskInfoDialog.close();
+            taskInfoDialog.remove();
+        })
     }
 
     function displayTasks(){
@@ -191,9 +205,12 @@ const dom = (() => {
     buttonSubmitTask.addEventListener('click' , () => {
         let title = document.getElementById('task-name').value;
         const taskDialogBox = document.getElementById("main-task-dialog-box");
+        let details = document.getElementById('description').value; // Add this line
+        let date = document.getElementById('oldtaskDueDate').value; // Add this line
+        let priority = document.getElementById('priority-type').value; // Add this line
         console.log("click");
         if(activeProjectTitle){
-            addTaskToProject(activeProjectTitle, {title});
+            addTaskToProject(activeProjectTitle, {title, details, date, priority});
             projects.setActiveProject(activeProjectTitle);
             createTask(title);
             displayTasks();
