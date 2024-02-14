@@ -132,12 +132,25 @@ const dom = (() => {
         return newT;
     }
 
+    tasksDiv.addEventListener("click", (e) => {
+        const targeTask = e.target.closes('.card');
+        if(!targeTask) return;
+        const taskTitle = targetTask.querySelector('h4').textContent;
+
+        
+    })
+
+    function displayTaskInformation(taskTitle){
+        const task = projects.getActiveProject().getTask(taskTitle);
+
+        const taskInfoDialog = document.createElement('dialog');
+    }
+
     function displayTasks(){
         let activeProjects = projects.getActiveProject(activeProjectTitle);
         console.log(activeProjects);
         if(activeProjects){
             let list = activeProjects.getTasks();
-
             if(list.length > 0){
             tasksDiv.innerHTML = "";
             list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
@@ -184,7 +197,7 @@ const dom = (() => {
     })
 
    
-   
+    
 
  /*************** TASKS AREA FINISH **********************************************/ 
 
