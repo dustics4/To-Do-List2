@@ -79,7 +79,7 @@ export const projects = (() => {
   }
 
   function getActiveProject() {
-      return projectsList.find(project => project.getActive() === true);
+      return projectsList.find(project => project.getActive());
   }
 
   function setActive(activeState){

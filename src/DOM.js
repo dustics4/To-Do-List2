@@ -44,7 +44,7 @@ const dom = (() => {
         const targetProjectButton = e.target.closest(".project-btn");
         if (targetProjectButton) {
             const title = targetProjectButton.id;
-            activeProjectTitle = title;
+            projects.setActiveProject(title);
             displayActiveProject(title);
             console.log("click");
         }
@@ -148,7 +148,17 @@ const dom = (() => {
     })
 
     function displayTaskInformation(taskTitle){
-        const task = projects.getActiveProject().getTask(taskTitle);
+        const activeProject = projects.getActiveProject();
+
+        if (!activeProject) {
+            console.error("No active project found.");
+            return;
+        }
+        const task = activeProject.getTask(taskTitle);
+        if (!task) {
+            console.error(`Task "${taskTitle}" not found in active project.`);
+            return;
+        }
 
         const taskInfoDialog = document.createElement('dialog');
         taskInfoDialog.innerHTML = `
