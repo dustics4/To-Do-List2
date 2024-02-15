@@ -6,13 +6,9 @@ const dom = (() => {
     let activeProjectTitle = null;
     const projectsDiv = document.getElementById("folder-body")
     const folderButtonSubmit = document.getElementById("folder-buttonSubmit");
-    const folderButtonClose = document.getElementById("folder-button-close");
     const folderDialogBox = document.getElementById("folder-dialog-box");
     const tasksDiv = document.getElementById("to-do-bodi");
     const buttonSubmitTask = document.getElementById("buttonSubmit");
-    const folderButtonRemove = document.getElementById("trash-folder");    
-    const priorityButtons = document.getElementById("priority-type");
-    
     /*************** PROJECT AREA START **********************************************/ 
     //function to createProject , takes in the title of project
 
@@ -141,8 +137,14 @@ const dom = (() => {
         };
 
         if(e.target.classList.contains('pen-to-square')){
-            editTask(tasktitle);
+            editTask(taskTitle);
         }
+
+        if(e.target.classList.contains('task-remove')){
+            console.log()
+            removeTask(taskTitle);
+        }
+
 
     })
 
@@ -187,7 +189,45 @@ const dom = (() => {
         const descriptionEditInput = document.getElementById("description-edit");
         const oldTaskDueDateEditInput = document.getElementById("oldtaskDueDate-edit");
         const editPriorityType = document.getElementById("edit-priority-type");   
+        const closeEditbutton = document.querySelector(".close-button-edit");
+        //prefilling the edit modal with task details
+        taskNameEditInput.value = task.title;
+        descriptionEditInput.value = task.details;
+        oldTaskDueDateEditInput.value = task.date;
+        editPriorityType.value = task.priority;
+        //show the edit modal
+        taskDialogBox.showModal();
 
+        const editButtonSubmit = document.querySelector(".edit-submit");
+        editButtonSubmit.addEventListener('click', () => {
+            task.title = taskNameEditInput.value;
+            task.details = descriptionEditInput.value;
+            task.date = oldTaskDueDateEditInput.value;
+            task.priority = editPriorityType.value;
+
+            taskDialogBox.close();
+            displayTasks();
+        })
+
+        closeEditbutton.addEventListener('click' , () => {
+            taskDialogBox.close();
+        })
+    }
+
+    function removeTask(removedTaskTitle){
+        console.log("click");
+        const project = projects.getActiveProject();
+
+        if(project){
+            project.removeTask(removedTaskTitle);
+            const taskElements = document.querySelectorAll('.card h4');
+            taskElements.forEach(taskElement => {
+            if(taskElement.textContent === removedTaskTitle){
+                const cardElement = taskElement.parentElement;
+                cardElement.remove();
+            }
+        })
+        }
         
     }
 
