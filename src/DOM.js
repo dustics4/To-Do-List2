@@ -53,12 +53,10 @@ const dom = (() => {
     //function to display the activeProject
     function displayActiveProject(project) {
         tasksDiv.innerHTML = "";
-
-        //Display tasks
         let tasks = getTasksOfProject(project);
          // Display tasks
         tasks.forEach(task => {
-            const taskElement = createTask(task.title, task.priority); // Assuming createTask function is defined elsewhere
+            const taskElement = createTask(task.title, task.priority); 
             tasksDiv.appendChild(taskElement);
         });
 
@@ -71,7 +69,6 @@ const dom = (() => {
         const taskDialogBox = document.getElementById("main-task-dialog-box")
 
         createTaskButton.addEventListener("click", () => {
-            // Add code for creating new tasks within the active project
             if(activeProjectTitle){
                 taskDialogBox.showModal();
             }else {
@@ -93,8 +90,6 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
-
-
     function getTasksOfProject(projectTitle){
         const project = projects.getProject(projectTitle);
         return project ? project.getTasks() : [];
@@ -145,6 +140,10 @@ const dom = (() => {
             displayTaskInformation(taskTitle);
         };
 
+        if(e.target.classList.contains('pen-to-square')){
+            editTask(tasktitle);
+        }
+
     })
 
     function displayTaskInformation(taskTitle){
@@ -179,6 +178,17 @@ const dom = (() => {
             taskInfoDialog.close();
             taskInfoDialog.remove();
         })
+    }
+
+    function editTask(taskTitle){
+        const task = projects.getActiveProject().getTask(taskTitle);
+        const taskDialogBox = document.getElementById("task-dialog-box");
+        const taskNameEditInput = document.getElementById("task-name-edit");
+        const descriptionEditInput = document.getElementById("description-edit");
+        const oldTaskDueDateEditInput = document.getElementById("oldtaskDueDate-edit");
+        const editPriorityType = document.getElementById("edit-priority-type");   
+
+        
     }
 
     function displayTasks(){
