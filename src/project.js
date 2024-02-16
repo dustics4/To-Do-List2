@@ -1,3 +1,6 @@
+import Storage from "./storage";
+import { format } from "date-fns";
+import dom from "./DOM";
 export const task = (title, details, date, priority) => {
 
   return {
@@ -8,13 +11,19 @@ export const task = (title, details, date, priority) => {
   }
 }
 
+function generateUniqueId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+}
+
 export const project = (title, id) => {
   let tasks = [];
   let active = false;
 
   function tasksAppend(title, details, date, priority) {
-      const newTask = task(title, details, date, priority);
+      const newTask = task(title, details, format(date, 'yyyy-MM-dd'), priority);
+      newTask.id = generateUniqueId();  
       tasks.push(newTask);
+      Storage.save("tasks" , tasks);
       console.log(tasks);
   }
 
@@ -23,7 +32,7 @@ export const project = (title, id) => {
   }
 
   function getTasks() {
-        console.log(tasks);
+    console.log(tasks);
       return tasks;
   }
 
@@ -39,6 +48,11 @@ export const project = (title, id) => {
       active = activeState; 
   }
 
+  const savedTasks = Storage.load('tasks');
+    if (savedTasks) {
+        tasks = savedTasks.filter(task => task.projectId === id); // Filter tasks by project id
+    }
+    
   return {
       title,
       id,
@@ -55,17 +69,18 @@ export const projects = (() => {
   let projectsList = [];
   let active = false;
 
-  function projectsAppend(title,id) {
-      const newProject = project(title,id);
+  function projectsAppend(title) {
+      const newProject = project(title, generateUniqueId());
+      newProject.id = generateUniqueId();
       projectsList.push(newProject);
+      Storage.save('projects', projectsList);
       console.log(newProject);
   }
 
   function removeProject(title) {
       projectsList = projectsList.filter(project => project.title !== title);
       console.log(projectsList = projectsList.filter(project => project.title !== title));
-      //projectsList.splice(index, 1);
-      //console.log(projectsList.splice(index, 1));
+      Storage.save('projects', projectsList);
   }
 
   console.log(removeProject());
@@ -96,6 +111,11 @@ export const projects = (() => {
 
     })
   }
+
+  const savedProjects = Storage.load('projects');
+    if (savedProjects) {
+        projectsList = savedProjects;
+    }
 
 
   return {

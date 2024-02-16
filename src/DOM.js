@@ -1,5 +1,6 @@
 import { projects , project, task } from "./project";
 import Storage from "./storage";
+import { format } from "date-fns";
 
 const dom = (() => {
 
@@ -19,8 +20,9 @@ const dom = (() => {
             <button class="project-btn" id="${title}">${title}</button>
             <button class="trash-folder" id="trash-folder">X</button>
             `
-            return newP;
+            Storage.save('projects', projects.getProjectsList());
 
+            return newP;
     }
 
     projectsDiv.addEventListener("click", (e) => {
@@ -45,6 +47,21 @@ const dom = (() => {
             console.log("click");
         }
     });
+
+    const savedProjects = Storage.load('projects');
+    if (savedProjects) {
+        projects.projectsList = savedProjects;
+        displayProjects(); // Update the UI with the loaded projects
+    }
+
+    const savedTasks = Storage.load('tasks');
+    if (savedTasks) {
+        const activeProject = projects.getActiveProject();
+        if (activeProject) {
+            activeProject.getTasks().splice(0, activeProject.getTasks().length, ...savedTasks);
+            displayTasks(); // Update the UI with the loaded tasks
+        }
+    }
 
     //function to display the activeProject
     function displayActiveProject(project) {
@@ -82,7 +99,15 @@ const dom = (() => {
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
 
+        const activeProject = projects.getActiveProject();
+        if (activeProject) {
+            displayActiveProject(activeProject.title);
+        }
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        displayProjects();
+    });
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
@@ -123,7 +148,7 @@ const dom = (() => {
             <button><i class="task-remove">remove</i></button>
         </div>
         `
-
+        Storage.save('tasks', projects.getActiveProject().getTasks());
         return newT;
     }
 
@@ -133,6 +158,7 @@ const dom = (() => {
         const taskTitle = targetTask.querySelector('h4').textContent;
 
         if(e.target.classList.contains('circle-info')){
+            console.log("click");
             displayTaskInformation(taskTitle);
         };
 
@@ -321,6 +347,8 @@ const dom = (() => {
         date.value = '';
         priority.value = '';
     }
+
+   
     
     return {
         
