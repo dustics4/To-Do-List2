@@ -22,9 +22,9 @@ export const project = (title, id) => {
   function tasksAppend(title, details, date, priority) {
       const newTask = task(title, details, format(date, 'yyyy-MM-dd'), priority);
       newTask.id = generateUniqueId();  
+      newTask.projectId = this.id;
       tasks.push(newTask);
       Storage.save("tasks" , tasks);
-      console.log(tasks);
   }
 
   function removeTask(removedTask) {
@@ -49,9 +49,12 @@ export const project = (title, id) => {
   }
 
   const savedTasks = Storage.load('tasks');
-    if (savedTasks) {
+    if (Array.isArray(savedTasks)) {
         tasks = savedTasks.filter(task => task.projectId === id); // Filter tasks by project id
+    } else {
+        console.error("Saved tasks is not an array:", savedTasks);
     }
+
     
   return {
       title,
@@ -67,14 +70,12 @@ export const project = (title, id) => {
 
 export const projects = (() => {
   let projectsList = [];
-  let active = false;
 
   function projectsAppend(title) {
       const newProject = project(title, generateUniqueId());
       newProject.id = generateUniqueId();
       projectsList.push(newProject);
       Storage.save('projects', projectsList);
-      console.log(newProject);
   }
 
   function removeProject(title) {
@@ -86,7 +87,7 @@ export const projects = (() => {
   console.log(removeProject());
   
   function getProjectsList() {
-      return projectsList
+      return projectsList || [];
   }
 
   function getProject(title) {
@@ -94,8 +95,13 @@ export const projects = (() => {
   }
 
   function getActiveProject() {
-      return projectsList.find(project => project.getActive());
-  }
+    const activeProjectTitle = Storage.load('activeProject'); // Load active project title from local storage
+        if (activeProjectTitle) {
+            return projectsList.find(project => project.title === activeProjectTitle);
+        } else {
+            return null;
+        }
+}
 
   function setActive(activeState){
     active = activeState;

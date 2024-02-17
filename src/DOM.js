@@ -21,7 +21,7 @@ const dom = (() => {
             <button class="trash-folder" id="trash-folder">X</button>
             `
             Storage.save('projects', projects.getProjectsList());
-
+            projectsDiv.appendChild(newP);
             return newP;
     }
 
@@ -48,20 +48,7 @@ const dom = (() => {
         }
     });
 
-    const savedProjects = Storage.load('projects');
-    if (savedProjects) {
-        projects.projectsList = savedProjects;
-        displayProjects(); // Update the UI with the loaded projects
-    }
-
-    const savedTasks = Storage.load('tasks');
-    if (savedTasks) {
-        const activeProject = projects.getActiveProject();
-        if (activeProject) {
-            activeProject.getTasks().splice(0, activeProject.getTasks().length, ...savedTasks);
-            displayTasks(); // Update the UI with the loaded tasks
-        }
-    }
+    
 
     //function to display the activeProject
     function displayActiveProject(project) {
@@ -95,7 +82,8 @@ const dom = (() => {
 
     //function to display each project created
     function displayProjects(){
-        let list = projects.getProjectsList();
+        let list = projects.projectsList;
+
         projectsDiv.innerHTML = "";
         list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
 
@@ -106,8 +94,41 @@ const dom = (() => {
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        displayProjects();
+        const savedProjects = Storage.load('projects');
+        console.log("Projects loaded:", savedProjects);
+        if(savedProjects !=null){
+            projects.projectsList = savedProjects;
+            console.log("Loaded projects:" , projects.projectsList);
+
+            const savedActiveProject = Storage.load('activeProject');
+            if (savedActiveProject != null) {
+                activeProjectTitle = savedActiveProject;
+                displayActiveProject(activeProjectTitle);
+            }
+            displayProjects();
+        }
+
+        const savedTasks = Storage.load('tasks');
+        console.log("Saved tasks:", savedTasks); 
+        if (savedTasks) {
+            const activeProject = projects.getActiveProject();
+            if (activeProject) {
+                activeProject.getTasks().splice(0, activeProject.getTasks().length, ...savedTasks);
+                displayTasks(); 
+            }
+        }
     });
+
+    function setActiveProject(projectTitle) {
+        projectsList.forEach(project => {
+            if(project.title === projectTitle){
+                project.updateActive(true);
+                Storage.save('activeProject', projectTitle); // Save active project title to local storage
+            } else {
+                project.updateActive(false);
+            }
+        });
+    }
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
@@ -124,6 +145,9 @@ const dom = (() => {
         } else {
             console.error(`Project "${projectTitle}" not found.`);
         }
+
+        Storage.save('tasks', projects.getActiveProject().getTasks());
+        console.log(projects.getActiveProject().getTasks());
     }
 
     function addTaskToProject(projectTitle, task){
@@ -309,10 +333,6 @@ const dom = (() => {
             //run create tasks function - takes title
             //run displayTasks function
     })
-
-   
-    
-
  /*************** TASKS AREA FINISH **********************************************/ 
 
     const validatedField = false;
@@ -322,7 +342,7 @@ const dom = (() => {
         projects.projectsAppend(title);
         projects.setActiveProject(title);
         activeProjectTitle = title;
-        displayProjects();
+        displayProjects();  
         createProject(title);
 
         folderDialogBox.close();
@@ -348,10 +368,9 @@ const dom = (() => {
         priority.value = '';
     }
 
-   
     
     return {
-        
+    setActiveProject, 
     }
     
 
