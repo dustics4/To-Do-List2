@@ -46,6 +46,24 @@ const dom = (() => {
         }
     });
 
+    function init() {
+        const storedProjects = Storage.loadProjects();
+        if (storedProjects.length > 0) {
+            projects.projectsList = storedProjects;
+            displayProjects(); // Display stored projects
+            const activeProject = projects.getActiveProject();
+            if (activeProject) {
+                displayActiveProject(activeProject.title); // Display active project tasks
+            }else {
+                // If there are no stored projects, create a default project
+                const defaultProjectTitle = "Default Project";
+                projects.projectsAppend(defaultProjectTitle);
+                projects.setActiveProject(defaultProjectTitle);
+                displayProjects();
+            }
+        }
+    }
+
     
 
     //function to display the activeProject
@@ -337,7 +355,8 @@ const dom = (() => {
         priority.value = '';
     }
 
-    
+    document.addEventListener("DOMContentLoaded", init);
+
     return {
     setActiveProject, 
     }

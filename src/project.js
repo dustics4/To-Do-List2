@@ -1,5 +1,5 @@
 import {Storage} from "./storage"
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import dom from "./DOM";
 export const task = (title, details, date, priority) => {
 
@@ -15,14 +15,15 @@ function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 }
 
-export const project = (title, id) => {
+export const project = (title) => {
+  let id = generateUniqueId();
   let tasks = [];
   let active = false;
 
   function tasksAppend(title, details, date, priority) {
       const newTask = task(title, details, format(date, 'yyyy-MM-dd'), priority);
       newTask.id = generateUniqueId();  
-      newTask.projectId = this.id;
+      newTask.projectId = id;
       tasks.push(newTask);
     }
 
@@ -39,13 +40,15 @@ export const project = (title, id) => {
       return tasks.find(task => task.title === title);
   }
 
-  function getActive() {
+  function isActive() {
       return active;
   }
 
-  function updateActive(activeState) {
+  function setActive(activeState) {
       active = activeState; 
   }
+
+  setActive(false);
 
   return {
       title,
@@ -54,23 +57,25 @@ export const project = (title, id) => {
       removeTask,
       getTasks,
       getTask,
-      getActive,
-      updateActive,
+      isActive,
+      setActive,
   }
 }
 
 export const projects = (() => { 
-    let projectsList = [];
-
+    let projectsList = Storage.loadProjects() || [];
+ 
     function projectsAppend(title) {
         const newProject = project(title, generateUniqueId());
         newProject.id = generateUniqueId();
         projectsList.push(newProject);
+        saveProjectsToStorage();
     }
 
     function removeProject(title) {
         projectsList = projectsList.filter(project => project.title !== title);
         console.log(projectsList = projectsList.filter(project => project.title !== title));
+        saveProjectsToStorage();
     }
     
     function getProjectsList() {
@@ -82,22 +87,33 @@ export const projects = (() => {
     }
 
     function getActiveProject() {
-        return projectsList.find(project => project.getActive());
+        const activeProjectTitle = localStorage.getItem('activeProject');
+        return projectsList.find(project => project.title === activeProjectTitle);
     }
 
-    function setActive(activeState){
-        active = activeState;
+    function initializeActiveStatus() {
+        const activeProjectTitle = localStorage.getItem('activeProject');
+        projectsList.forEach(project => {
+            if (project.title === activeProjectTitle) {
+                project.setActive(true);
+            } else {
+                project.setActive(false);
+            }
+        });
     }
+
+    initializeActiveStatus();
   
     function setActiveProject(projectTitle){
         projectsList.forEach(project => {
-            if(project.title === projectTitle){
-                project.updateActive(true);
-            }else{
-                project.updateActive(false);
+            if (project.title === projectTitle) {
+                project.setActive(true);
+                localStorage.setItem('activeProject', projectTitle);
+            } else {
+                project.setActive(false);
             }
-
-        })
+        });
+        saveProjectsToStorage();
     }
 
     function saveProjectsToStorage() {
