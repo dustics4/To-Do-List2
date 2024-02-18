@@ -1,4 +1,4 @@
-import Storage from "./storage";
+import {Storage} from "./storage"
 import { format } from "date-fns";
 import dom from "./DOM";
 export const task = (title, details, date, priority) => {
@@ -100,6 +100,10 @@ export const projects = (() => {
         })
     }
 
+    function saveProjectsToStorage() {
+        Storage.saveProjects(projectsList);
+    }
+
 
   return {
     setActiveProject,
@@ -110,5 +114,6 @@ export const projects = (() => {
     getActiveProject,
     getProject,
     removeProject,
+    saveProjectsToStorage,
   }
 })();
