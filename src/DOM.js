@@ -1,6 +1,4 @@
 import { projects , project, task } from "./project";
-import Storage from "./storage";
-import { format } from "date-fns";
 
 const dom = (() => {
 
@@ -20,8 +18,6 @@ const dom = (() => {
             <button class="project-btn" id="${title}">${title}</button>
             <button class="trash-folder" id="trash-folder">X</button>
             `
-            Storage.save('projects', projects.getProjectsList());
-            projectsDiv.appendChild(newP);
             return newP;
     }
 
@@ -93,37 +89,11 @@ const dom = (() => {
         }
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const savedProjects = Storage.load('projects');
-        console.log("Projects loaded:", savedProjects);
-        if(savedProjects !=null){
-            projects.projectsList = savedProjects;
-            console.log("Loaded projects:" , projects.projectsList);
-
-            const savedActiveProject = Storage.load('activeProject');
-            if (savedActiveProject != null) {
-                activeProjectTitle = savedActiveProject;
-                displayActiveProject(activeProjectTitle);
-            }
-            displayProjects();
-        }
-
-        const savedTasks = Storage.load('tasks');
-        console.log("Saved tasks:", savedTasks); 
-        if (savedTasks) {
-            const activeProject = projects.getActiveProject();
-            if (activeProject) {
-                activeProject.getTasks().splice(0, activeProject.getTasks().length, ...savedTasks);
-                displayTasks(); 
-            }
-        }
-    });
 
     function setActiveProject(projectTitle) {
         projectsList.forEach(project => {
             if(project.title === projectTitle){
                 project.updateActive(true);
-                Storage.save('activeProject', projectTitle); // Save active project title to local storage
             } else {
                 project.updateActive(false);
             }
@@ -145,13 +115,11 @@ const dom = (() => {
         } else {
             console.error(`Project "${projectTitle}" not found.`);
         }
-
-        Storage.save('tasks', projects.getActiveProject().getTasks());
-        console.log(projects.getActiveProject().getTasks());
     }
 
     function addTaskToProject(projectTitle, task){
-        if(projectTitle){
+        const activeProject = projects.getActiveProject();
+        if(activeProject){
             addTask(projectTitle, task);
             displayTasks();
         }else{
@@ -172,7 +140,6 @@ const dom = (() => {
             <button><i class="task-remove">remove</i></button>
         </div>
         `
-        Storage.save('tasks', projects.getActiveProject().getTasks());
         return newT;
     }
 
@@ -282,7 +249,7 @@ const dom = (() => {
     }
 
     function displayTasks(){
-        let activeProjects = projects.getActiveProject(activeProjectTitle);
+        let activeProjects = projects.getActiveProject();
         console.log(activeProjects);
         if(activeProjects){
             let list = activeProjects.getTasks();
