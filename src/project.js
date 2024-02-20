@@ -11,32 +11,27 @@ export const task = (title, details, date, priority) => {
   }
 }
 
-function generateUniqueId() {
+export const generateUniqueId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 }
 
-export const project = (title) => {
-  let id = generateUniqueId();
-  let tasks = Storage.loadTasks(id) || [];
+export const project = (title,id = generateUniqueId()) => {
+  let tasks =  [];
   let active = false;
   
   
   function tasksAppend(title, details, date, priority) {
       const newTask = task(title, details, format(date, 'yyyy-MM-dd'), priority);
-      newTask.id = generateUniqueId();  
-      newTask.projectId = id;
       tasks.push(newTask);
-      saveTasksToStorage();
       console.log(`Task "${title}" added to project "${this.title}"`);
     }
 
   function removeTask(removedTask) {
       tasks = tasks.filter(task => task !== removedTask);
-      saveTasksToStorage();
+      //saveTasksToStorage();
   }
 
   function getTasks() {
-    console.log(tasks);
     return tasks;
   }
 
@@ -50,12 +45,12 @@ export const project = (title) => {
 
   function setActive(activeState) {
       active = activeState;
-      saveTasksToStorage(); 
+      //saveTasksToStorage(); 
   }
 
-  function saveTasksToStorage() {
+ /* function saveTasksToStorage() {
     Storage.saveTasks(`tasks_${id}`, tasks);
-  }
+  }*/
 
 
   return {
@@ -72,18 +67,15 @@ export const project = (title) => {
 }
 
 export const projects = (() => { 
-    let projectsList = Storage.loadProjects('projects') || [];
+    let projectsList = [];
 
     function initializeProjects() {
-        projectsList = projectsList.map(projectData => {
-          const proj = project(projectData.title);
-          proj.id = projectData.id;
-          proj.tasks = projectData.tasks || [];
-          
-          // Set setActive function
-          proj.setActive = projectData.setActive || (() => {}); // Default function if not present
-          
-          return proj;
+        const storedProjects = Storage.loadProjects() || [];
+        projectsList = storedProjects.map(projectData => {
+            const proj = project(projectData.title, projectData.id);
+            proj.tasks = projectData.tasks || [];
+            proj.setActive = projectData.setActive || (() => {});
+            return proj;
         });
       }
 
@@ -97,8 +89,11 @@ export const projects = (() => {
     }
 
     function removeProject(title) {
-        projectsList = projectsList.filter(project => project.title !== title);
-        saveProjectsToStorage();
+        const removedProjectIndex = projectsList.findIndex(project => project.title === title);
+        if (removedProjectIndex !== -1) {
+            projectsList.splice(removedProjectIndex, 1);
+            Storage.saveProjects(projectsList);
+        }
     }
     
     function getProjectsList() {
@@ -113,18 +108,6 @@ export const projects = (() => {
         const activeProjectTitle = localStorage.getItem('activeProject');
         return projectsList.find(project => project.title === activeProjectTitle);
     }
-
-    function initializeActiveStatus() {
-        const activeProjectTitle = localStorage.getItem('activeProject');
-        console.log(projectsList);
-        projectsList.forEach(project => {
-            if (project.setActive) { // Check if setActive function exists
-                project.setActive(project.title === activeProjectTitle);
-            }
-        });
-    }
-
-    initializeActiveStatus();
   
     function setActiveProject(projectTitle){
         projectsList.forEach(project => {

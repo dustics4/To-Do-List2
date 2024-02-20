@@ -1,6 +1,7 @@
 import { projects} from "./project";
 import { Storage } from "./storage";
 import { project } from "./project";
+import { generateUniqueId } from "./project";
 
 
 const dom = (() => {
@@ -33,7 +34,6 @@ const dom = (() => {
             projectElement.remove(); // Remove the project element immediately
             if (projectTitle === activeProjectTitle) {
                 tasksDiv.innerHTML = ""; // Clear tasksDiv if the removed project was active
-                Storage.removeActiveProject();
             }
         }
     })
@@ -49,34 +49,27 @@ const dom = (() => {
     });
 
     function init() {
-        const storedProjects = Storage.loadProjects();
-
-        storedProjects.forEach(projectData => {
-            const proj = project(projectData.title);
-            proj.id = projectData.id;
-            proj.tasks = projectData.tasks || [];
-            projects.projectsList.push(proj);
-          });
-
-        if (storedProjects.length === 0) {
+        const storedProjects = Storage.loadProjects() || [];
+        if (!storedProjects || storedProjects.length === 0) {
             const defaultProjectTitle = "Default Project";
-            projects.projectsAppend(defaultProjectTitle);
-            projects.getProject(defaultProjectTitle).tasksAppend("Sample Task 1", "Sample details 1", new Date(), "high");
-            projects.getProject(defaultProjectTitle).tasksAppend("Sample Task 2", "Sample details 2", new Date(), "medium");
+            const defaultProject = project(defaultProjectTitle);
+            defaultProject.tasksAppend("Sample Task 1", "Sample details 1", new Date(), "high");
+            defaultProject.tasksAppend("Sample Task 2", "Sample details 2", new Date(), "medium");
+            projects.projectsList.push(defaultProject);
+            Storage.saveProjects(projects.getProjectsList());
+        } else {
+            projects.projectsList = storedProjects;
         }
         displayProjects();
 
-        const storedActiveProjectTitle = Storage.loadActiveProject();
-        if(storedActiveProjectTitle) {
-            projects.setActiveProject(storedActiveProjectTitle);
-            displayActiveProject(storedActiveProjectTitle);
-        }
-
-        console.log("Projects loaded:", projects.projectsList.map(proj => ({ title: proj.title, id: proj.id })));
-        projects.projectsList.forEach(proj => {
-          console.log(`Tasks for project "${proj.title}":`, proj.tasks.map(task => task.id));
-        });
+       
     }
+
+    const clearAllButton = document.getElementById("clear-all-button");
+    clearAllButton.addEventListener("click", () => {
+        Storage.clearLocalStorage();
+        location.reload(); // Reload the page to reflect the changes
+    });
 
     
 
@@ -287,7 +280,6 @@ const dom = (() => {
 
     function displayTasks(){
         let activeProjects = projects.getActiveProject();
-        console.log(activeProjects);
         if(activeProjects){
             let list = activeProjects.getTasks();
             if(list.length > 0){
@@ -331,9 +323,7 @@ const dom = (() => {
             clearTaskInput();
         }else{
             console.log("no active project selected");
-        }
-        Storage.saveActiveProject(activeProjectTitle);
- 
+        } 
     })
  /*************** TASKS AREA FINISH **********************************************/ 
 
