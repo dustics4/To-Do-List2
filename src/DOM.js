@@ -42,7 +42,6 @@ const dom = (() => {
         const targetProjectButton = e.target.closest(".project-btn");
         if (targetProjectButton) {
             const title = targetProjectButton.id;
-            projects.setActiveProject(title);
             displayActiveProject(title);
             console.log("click");
         }
@@ -78,7 +77,7 @@ const dom = (() => {
         tasksDiv.innerHTML = "";
         const project = projects.getProject(projectTitle);
         if (project) {
-            console.log("Tasks retrieved from project:", project.getTasks());
+            console.log("Tasks retrieved from project:", project.getTasks() , Storage.loadProjects());
             project.getTasks().forEach(task => {
                 const taskElement = createTaskElement(task.title, task.priority);
                 tasksDiv.appendChild(taskElement);
