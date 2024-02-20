@@ -42,39 +42,49 @@ const dom = (() => {
             const title = targetProjectButton.id;
             projects.setActiveProject(title);
             displayActiveProject(title);
+            Storage.saveActiveProject(title);
             console.log("click");
         }
     });
 
     function init() {
         const storedProjects = Storage.loadProjects();
-        if (storedProjects.length > 0) {
-            projects.projectsList = storedProjects;
-            displayProjects(); // Display stored projects
-            const activeProject = projects.getActiveProject();
-            if (activeProject) {
-                displayActiveProject(activeProject.title); // Display active project tasks
-            }else {
-                // If there are no stored projects, create a default project
-                const defaultProjectTitle = "Default Project";
-                projects.projectsAppend(defaultProjectTitle);
-                projects.setActiveProject(defaultProjectTitle);
-                displayProjects();
-            }
+        if (storedProjects.length === 0) {
+            const defaultProjectTitle = "Default Project";
+            projects.projectsAppend(defaultProjectTitle);
+            projects.getProject(defaultProjectTitle).tasksAppend("Sample Task 1", "Sample details 1", new Date(), "high");
+            projects.getProject(defaultProjectTitle).tasksAppend("Sample Task 2", "Sample details 2", new Date(), "medium");
         }
+        displayProjects();
+        setActiveProjectFromStorage();
     }
 
+    function clearLocalStorage() {
+        Storage.clearLocalStorage();
+        // Additionally, you might want to perform other actions, such as resetting UI or state variables
+        // Reset UI
+        tasksDiv.innerHTML = "";
+        projectsDiv.innerHTML = "";
+        // Reset state variables
+        activeProjectTitle = null;
+    }
     
+    // Example usage: Call clearLocalStorage when a "Clear All" button is clicked
+    const clearAllButton = document.getElementById("clear-all-button");
+    clearAllButton.addEventListener("click", clearLocalStorage);
 
     //function to display the activeProject
-    function displayActiveProject(project) {
+    function displayActiveProject(projectTitle) {
         tasksDiv.innerHTML = "";
-        let tasks = getTasksOfProject(project);
-         // Display tasks
-        tasks.forEach(task => {
-            const taskElement = createTask(task.title, task.priority); 
-            tasksDiv.appendChild(taskElement);
-        });
+        const project = projects.getProject(projectTitle);
+        if (project) {
+            projects.setActiveProject(projectTitle);
+            project.getTasks().forEach(task => {
+                const taskElement = createTaskElement(task.title, task.priority);
+                tasksDiv.appendChild(taskElement);
+            });
+        }
+        Storage.saveActiveProject(projectTitle);
 
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
@@ -98,33 +108,54 @@ const dom = (() => {
 
     //function to display each project created
     function displayProjects(){
-        let list = projects.projectsList;
-
+        const projectsDiv = document.getElementById("folder-body");
         projectsDiv.innerHTML = "";
-        list.forEach(project => projectsDiv.appendChild(createProject(project.title)));
+        projects.getProjectsList().forEach(project => {
+            const projectElement = createProject(project.title);
+            projectsDiv.appendChild(projectElement);
+        });
+    }
 
-        const activeProject = projects.getActiveProject();
-        if (activeProject) {
-            displayActiveProject(activeProject.title);
+    function setActiveProjectFromStorage() {
+        const storedActiveProjectTitle = Storage.loadActiveProject();
+        if (storedActiveProjectTitle) {
+            activeProjectTitle = storedActiveProjectTitle;
+            displayActiveProject(activeProjectTitle);
+        }else {
+            // If no active project is stored, set the default project as active
+            const defaultProject = projects.getProjectsList().find(project => project.title === "Default Project");
+            if (defaultProject) {
+                activeProjectTitle = defaultProject.title;
+                displayActiveProject(activeProjectTitle);
+            }
         }
     }
 
-
-    function setActiveProject(projectTitle) {
-        projectsList.forEach(project => {
-            if(project.title === projectTitle){
-                project.updateActive(true);
-            } else {
-                project.updateActive(false);
-            }
-        });
+    function createTaskElement(title, priority) {
+        const newT = document.createElement('div');
+        newT.classList.add('card');
+        newT.classList.add(`${priority}`);
+        newT.innerHTML = `
+            <h4><button class="tick"><i class="fa-regular fa-circle"></i></button>${title}</h4>
+            <div class="card-buttons">
+                <button><i class="circle-info">info</i></button>
+                <button><i class="pen-to-square">edit</i></button>
+                <button><i class="task-remove">remove</i></button>
+            </div>
+        `;
+        return newT;
     }
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
     function getTasksOfProject(projectTitle){
         const project = projects.getProject(projectTitle);
-        return project ? project.getTasks() : [];
+        if (project && typeof project.getTasks === 'function') {
+            return project.getTasks();
+        } else {
+            console.error(`Tasks not found for project "${projectTitle}".`);
+            return [];
+        }
     }
 
     function addTask(projectTitle, task){
@@ -138,12 +169,19 @@ const dom = (() => {
     }
 
     function addTaskToProject(projectTitle, task){
-        const activeProject = projects.getActiveProject();
-        if(activeProject){
-            addTask(projectTitle, task);
-            displayTasks();
-        }else{
-            console.log("No active project selected");
+        const project = projects.getProject(projectTitle);
+        if (project) {
+            const existingTask = project.getTask(task.title);
+            if(!existingTask){
+                project.tasksAppend(task.title, task.details, task.date, task.priority);
+                displayActiveProject(projectTitle);
+                //displayTasks();
+                Storage.saveProjects(projects.projectsList);
+            }else {
+                console.log("Task with the same title already exists.");
+            }
+        } else {
+            console.error(`Project "${projectTitle}" not found.`);
         }
     }
     
@@ -264,6 +302,9 @@ const dom = (() => {
                 cardElement.remove();
             }
         })
+        Storage.saveProjects(projects.projectsList);
+        }else {
+            console.error("No active project found.");
         }
         
     }
@@ -274,21 +315,20 @@ const dom = (() => {
         if(activeProjects){
             let list = activeProjects.getTasks();
             if(list.length > 0){
-            tasksDiv.innerHTML = "";
-            list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
-
-            let addTaskButton = document.createElement('button');
-            addTaskButton.className = 'create-task-button';
-            addTaskButton.innerHTML = 'Create New Task';
-        
-            tasksDiv.appendChild(addTaskButton);
-
-            addTaskButton.addEventListener("click", (e) => {
-                const taskDialogBox = document.getElementById("main-task-dialog-box");
-                e.preventDefault();
-                taskDialogBox.showModal();
-            })
-        }
+                tasksDiv.innerHTML = "";
+                list.forEach(task => tasksDiv.appendChild(createTask(task.title, task.priority)));
+    
+                let addTaskButton = document.createElement('button');
+                addTaskButton.className = 'create-task-button';
+                addTaskButton.innerHTML = 'Create New Task';
+                tasksDiv.appendChild(addTaskButton);
+    
+                addTaskButton.addEventListener("click", (e) => {
+                    const taskDialogBox = document.getElementById("main-task-dialog-box");
+                    e.preventDefault();
+                    taskDialogBox.showModal();
+                });
+            }
         } else {
             console.log("no active project"); // Log if there is no active project
         }
@@ -316,9 +356,8 @@ const dom = (() => {
         }else{
             console.log("no active project selected");
         }
-        
-            //run create tasks function - takes title
-            //run displayTasks function
+        Storage.saveActiveProject(activeProjectTitle);
+ 
     })
  /*************** TASKS AREA FINISH **********************************************/ 
 
@@ -358,7 +397,6 @@ const dom = (() => {
     document.addEventListener("DOMContentLoaded", init);
 
     return {
-    setActiveProject, 
     }
     
 

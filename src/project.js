@@ -6,7 +6,7 @@ export const task = (title, details, date, priority) => {
   return {
       title,
       details,
-      date,
+      date: format(date, 'yyyy-MM-dd'),
       priority,
   }
 }
@@ -19,21 +19,24 @@ export const project = (title) => {
   let id = generateUniqueId();
   let tasks = [];
   let active = false;
-
+  
+  
   function tasksAppend(title, details, date, priority) {
       const newTask = task(title, details, format(date, 'yyyy-MM-dd'), priority);
       newTask.id = generateUniqueId();  
       newTask.projectId = id;
       tasks.push(newTask);
+      saveTasksToStorage();
     }
 
   function removeTask(removedTask) {
       tasks = tasks.filter(task => task !== removedTask);
+      saveTasksToStorage();
   }
 
   function getTasks() {
     console.log(tasks);
-      return tasks;
+    return tasks;
   }
 
   function getTask(title) {
@@ -45,10 +48,14 @@ export const project = (title) => {
   }
 
   function setActive(activeState) {
-      active = activeState; 
+      active = activeState;
+      saveTasksToStorage(); 
   }
 
-  setActive(false);
+  function saveTasksToStorage() {
+    Storage.saveTasks(`tasks_${id}`, tasks);
+  }
+
 
   return {
       title,
@@ -60,13 +67,29 @@ export const project = (title) => {
       isActive,
       setActive,
   }
+
 }
 
 export const projects = (() => { 
-    let projectsList = Storage.loadProjects() || [];
- 
+    let projectsList = Storage.loadProjects('projects') || [];
+
+    function initializeProjects() {
+        projectsList = projectsList.map(projectData => {
+          const proj = project(projectData.title);
+          proj.id = projectData.id;
+          proj.tasks = projectData.tasks || [];
+          
+          // Set setActive function
+          proj.setActive = projectData.setActive || (() => {}); // Default function if not present
+          
+          return proj;
+        });
+      }
+
+    initializeProjects();
+    
     function projectsAppend(title) {
-        const newProject = project(title, generateUniqueId());
+        const newProject = project(title);
         newProject.id = generateUniqueId();
         projectsList.push(newProject);
         saveProjectsToStorage();
@@ -74,7 +97,6 @@ export const projects = (() => {
 
     function removeProject(title) {
         projectsList = projectsList.filter(project => project.title !== title);
-        console.log(projectsList = projectsList.filter(project => project.title !== title));
         saveProjectsToStorage();
     }
     
@@ -93,11 +115,10 @@ export const projects = (() => {
 
     function initializeActiveStatus() {
         const activeProjectTitle = localStorage.getItem('activeProject');
+        console.log(projectsList);
         projectsList.forEach(project => {
-            if (project.title === activeProjectTitle) {
-                project.setActive(true);
-            } else {
-                project.setActive(false);
+            if (project.setActive) { // Check if setActive function exists
+                project.setActive(project.title === activeProjectTitle);
             }
         });
     }
@@ -120,10 +141,8 @@ export const projects = (() => {
         Storage.saveProjects(projectsList);
     }
 
-
   return {
     setActiveProject,
-    setActive,
     projectsList,
     projectsAppend,
     getProjectsList,
