@@ -20,6 +20,7 @@ export class Storage {
     static saveTasks(projectId, tasks) {
         try {
             localStorage.setItem(`tasks_${projectId}`, JSON.stringify(tasks));
+            console.log(`Tasks saved for project with ID "${projectId}"`);
         } catch (error) {
             console.error("Error saving tasks from local storage", error);
         }

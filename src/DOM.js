@@ -1,5 +1,6 @@
 import { projects} from "./project";
 import { Storage } from "./storage";
+import { project } from "./project";
 
 
 const dom = (() => {
@@ -49,6 +50,14 @@ const dom = (() => {
 
     function init() {
         const storedProjects = Storage.loadProjects();
+
+        storedProjects.forEach(projectData => {
+            const proj = project(projectData.title);
+            proj.id = projectData.id;
+            proj.tasks = projectData.tasks || [];
+            projects.projectsList.push(proj);
+          });
+
         if (storedProjects.length === 0) {
             const defaultProjectTitle = "Default Project";
             projects.projectsAppend(defaultProjectTitle);
@@ -62,6 +71,11 @@ const dom = (() => {
             projects.setActiveProject(storedActiveProjectTitle);
             displayActiveProject(storedActiveProjectTitle);
         }
+
+        console.log("Projects loaded:", projects.projectsList.map(proj => ({ title: proj.title, id: proj.id })));
+        projects.projectsList.forEach(proj => {
+          console.log(`Tasks for project "${proj.title}":`, proj.tasks.map(task => task.id));
+        });
     }
 
     
