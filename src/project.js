@@ -27,6 +27,7 @@ export const project = (title) => {
       newTask.projectId = id;
       tasks.push(newTask);
       saveTasksToStorage();
+      console.log(`Task "${title}" added to project "${this.title}"`);
     }
 
   function removeTask(removedTask) {

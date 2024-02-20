@@ -28,6 +28,7 @@ export class Storage {
     static loadTasks(projectId) {
         try {
             const tasks = JSON.parse(localStorage.getItem(`tasks_${projectId}`));
+            console.log(`Tasks loaded for project "${projectId}"`);
             return tasks ? tasks : [];
         } catch (error) {
             console.error("Error whilst loading tasks from local storage", error);
@@ -46,6 +47,7 @@ export class Storage {
     static saveActiveProject(projectTitle) {
         try {
             localStorage.setItem('activeProject', projectTitle);
+            console.log(`Active project loaded: "${activeProjectTitle}"`);
         } catch (error) {
             console.error('Error saving active project to local storage', error);
         }
