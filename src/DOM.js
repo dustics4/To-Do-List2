@@ -56,6 +56,12 @@ const dom = (() => {
             projects.getProject(defaultProjectTitle).tasksAppend("Sample Task 2", "Sample details 2", new Date(), "medium");
         }
         displayProjects();
+
+        const storedActiveProjectTitle = Storage.loadActiveProject();
+        if(storedActiveProjectTitle) {
+            projects.setActiveProject(storedActiveProjectTitle);
+            displayActiveProject(storedActiveProjectTitle);
+        }
     }
 
     
@@ -126,26 +132,6 @@ const dom = (() => {
     /*************** PROJECT AREA FINISH **********************************************/ 
 
     /*************** TASKS AREA START **********************************************/ 
-    function getTasksOfProject(projectTitle){
-        const project = projects.getProject(projectTitle);
-        if (project && typeof project.getTasks === 'function') {
-            return project.getTasks();
-        } else {
-            console.error(`Tasks not found for project "${projectTitle}".`);
-            return [];
-        }
-    }
-
-    function addTask(projectTitle, task){
-        console.log("Adding task to project:", task);
-        const project = projects.getProject(projectTitle);
-        if (project) {
-            project.tasksAppend(task.title, task.details, task.date, task.priority);
-        } else {
-            console.error(`Project "${projectTitle}" not found.`);
-        }
-    }
-
     function addTaskToProject(projectTitle, task){
         const project = projects.getProject(projectTitle);
         if (project) {

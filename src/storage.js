@@ -43,6 +43,23 @@ export class Storage {
         }
     }
 
+    static saveActiveProject(projectTitle) {
+        try {
+            localStorage.setItem('activeProject', projectTitle);
+        } catch (error) {
+            console.error('Error saving active project to local storage', error);
+        }
+    }
+
+    static loadActiveProject() {
+        try {
+            return localStorage.getItem('activeProject');
+        } catch (error) {
+            console.error("Error loading active project from local storage", error);
+            return null;
+        }
+    }
+
     static clearLocalStorage() {
         try {
             localStorage.clear();

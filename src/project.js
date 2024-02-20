@@ -17,7 +17,7 @@ function generateUniqueId() {
 
 export const project = (title) => {
   let id = generateUniqueId();
-  let tasks = [];
+  let tasks = Storage.loadTasks(id) || [];
   let active = false;
   
   
