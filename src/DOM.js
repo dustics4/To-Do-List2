@@ -71,6 +71,7 @@ const dom = (() => {
         tasksDiv.innerHTML = "";
         const project = projects.getProject(projectTitle);
         if (project) {
+            console.log("Tasks retrieved from project:", project.getTasks());
             project.getTasks().forEach(task => {
                 const taskElement = createTaskElement(task.title, task.priority);
                 tasksDiv.appendChild(taskElement);
