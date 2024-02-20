@@ -32,6 +32,7 @@ const dom = (() => {
             projectElement.remove(); // Remove the project element immediately
             if (projectTitle === activeProjectTitle) {
                 tasksDiv.innerHTML = ""; // Clear tasksDiv if the removed project was active
+                Storage.removeActiveProject();
             }
         }
     })
@@ -42,7 +43,6 @@ const dom = (() => {
             const title = targetProjectButton.id;
             projects.setActiveProject(title);
             displayActiveProject(title);
-            Storage.saveActiveProject(title);
             console.log("click");
         }
     });
@@ -56,35 +56,20 @@ const dom = (() => {
             projects.getProject(defaultProjectTitle).tasksAppend("Sample Task 2", "Sample details 2", new Date(), "medium");
         }
         displayProjects();
-        setActiveProjectFromStorage();
     }
 
-    function clearLocalStorage() {
-        Storage.clearLocalStorage();
-        // Additionally, you might want to perform other actions, such as resetting UI or state variables
-        // Reset UI
-        tasksDiv.innerHTML = "";
-        projectsDiv.innerHTML = "";
-        // Reset state variables
-        activeProjectTitle = null;
-    }
     
-    // Example usage: Call clearLocalStorage when a "Clear All" button is clicked
-    const clearAllButton = document.getElementById("clear-all-button");
-    clearAllButton.addEventListener("click", clearLocalStorage);
 
     //function to display the activeProject
     function displayActiveProject(projectTitle) {
         tasksDiv.innerHTML = "";
         const project = projects.getProject(projectTitle);
         if (project) {
-            projects.setActiveProject(projectTitle);
             project.getTasks().forEach(task => {
                 const taskElement = createTaskElement(task.title, task.priority);
                 tasksDiv.appendChild(taskElement);
             });
         }
-        Storage.saveActiveProject(projectTitle);
 
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
@@ -116,20 +101,13 @@ const dom = (() => {
         });
     }
 
-    function setActiveProjectFromStorage() {
+    /*function setActiveProjectFromStorage() {
         const storedActiveProjectTitle = Storage.loadActiveProject();
         if (storedActiveProjectTitle) {
             activeProjectTitle = storedActiveProjectTitle;
             displayActiveProject(activeProjectTitle);
-        }else {
-            // If no active project is stored, set the default project as active
-            const defaultProject = projects.getProjectsList().find(project => project.title === "Default Project");
-            if (defaultProject) {
-                activeProjectTitle = defaultProject.title;
-                displayActiveProject(activeProjectTitle);
-            }
         }
-    }
+    }*/
 
     function createTaskElement(title, priority) {
         const newT = document.createElement('div');
@@ -174,8 +152,7 @@ const dom = (() => {
             const existingTask = project.getTask(task.title);
             if(!existingTask){
                 project.tasksAppend(task.title, task.details, task.date, task.priority);
-                displayActiveProject(projectTitle);
-                //displayTasks();
+                displayTasks();
                 Storage.saveProjects(projects.projectsList);
             }else {
                 console.log("Task with the same title already exists.");
@@ -303,8 +280,6 @@ const dom = (() => {
             }
         })
         Storage.saveProjects(projects.projectsList);
-        }else {
-            console.error("No active project found.");
         }
         
     }
