@@ -300,15 +300,15 @@ const dom = (() => {
                 const cardElement = taskElement.parentElement;
                 cardElement.remove();
             }
-        })
-        Storage.saveProjects(projects.projectsList);
+            })
+            Storage.saveProjects(projects.projectsList);
         }
         
     }
 
     function displayTasks(){
         let activeProjects = projects.getActiveProject();
-        if(activeProjects){
+        if(activeProjects){ 
             let list = activeProjects.getTasks();
             if(list.length > 0){
                 tasksDiv.innerHTML = "";

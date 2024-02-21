@@ -26,8 +26,8 @@ export const project = (title,id = generateUniqueId()) => {
       console.log(`Task "${title}" added to project "${this.title}"`);
     }
 
-  function removeTask(removedTask) {
-      tasks = tasks.filter(task => task !== removedTask);
+  function removeTask(removedTaskTitle) {
+      tasks = tasks.filter(task => task.title !== removedTaskTitle);
   }
 
   function getTasks() {
@@ -81,7 +81,7 @@ export const projects = (() => {
         const storedProjects = Storage.loadProjects() || [];
         projectsList = storedProjects.map(projectData => {
             const proj = project(projectData.title, projectData.id);
-            proj.setTasks(projectData.tasks);
+            proj.setTasks(projectData.tasks || []);
             proj.setActive = projectData.setActive || (() => {});
             return proj;
         });
