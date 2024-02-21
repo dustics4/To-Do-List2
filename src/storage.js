@@ -17,6 +17,13 @@ export class Storage {
         }
     }
 
+    static saveActiveProject(activeProjectTitle) {
+        localStorage.setItem("activeProjectTitle", activeProjectTitle);
+    }
+
+    static loadActiveProject() {
+        return localStorage.getItem("activeProjectTitle");
+    }
 
     static clearLocalStorage() {
         try {
