@@ -55,13 +55,13 @@ const dom = (() => {
     });
 
     function displayTasksForActiveProject(){
-        tasksDiv.innerHTML = "";
         const activeProject = projects.getProject(activeProjectTitle);
-        if(activeProject){
-            activeProject.getTasks().forEach(task => {
-                const taskElement = createTaskElement(task);
-                tasksDiv.appendChild(taskElement)
-            });
+        if (activeProject) {
+            const taskElements = activeProject.getTasks().map(task => createTaskElement(task.title, task.priority));
+            const fragment = document.createDocumentFragment();
+            taskElements.forEach(taskElement => fragment.appendChild(taskElement));
+            tasksDiv.innerHTML = ""; // Clear existing tasks
+            tasksDiv.appendChild(fragment); // Append all task elements at once
         }
     }
 
@@ -205,17 +205,11 @@ const dom = (() => {
         if(!targetTask) return;
         const taskTitle = targetTask.querySelector('h4').textContent;
 
-        if(e.target.classList.contains('circle-info')){
-            console.log("click");
+        if (e.target.classList.contains('circle-info')) {
             displayTaskInformation(taskTitle);
-        };
-
-        if(e.target.classList.contains('pen-to-square')){
+        } else if (e.target.classList.contains('pen-to-square')) {
             editTask(taskTitle);
-        }
-
-        if(e.target.classList.contains('task-remove')){
-            console.log()
+        } else if (e.target.classList.contains('task-remove')) {
             removeTask(taskTitle);
         }
 
