@@ -46,25 +46,25 @@ export const project = (title,id = generateUniqueId()) => {
       active = activeState;
   }
 
-  function toJSON(){
+  function toJSON() {
     return {
         title: title,
-        tasks: getTasks(),
-        id : id,
-        active : isActive(),
+        tasks: tasks,
+        id: id,
+        active: isActive(),
+        };
     }
-  }
 
   return {
       title,
       id,
+      toJSON,
       tasksAppend,
       removeTask,
       getTasks,
       getTask,
       isActive,
       setActive,
-      toJSON,
   }
 
 }
@@ -94,7 +94,14 @@ export const projects = (() => {
     function removeProject(title) {
         const removedProjectIndex = projectsList.findIndex(project => project.title === title);
         if (removedProjectIndex !== -1) {
+            // Remove the project from the list of projects
             projectsList.splice(removedProjectIndex, 1);
+    
+            // Remove only the tasks associated with the removed project from storage
+            const storedProjects = Storage.loadProjects() || [];
+            const updatedProjects = storedProjects.filter(projectData => projectData.title !== title);
+            Storage.saveProjects(updatedProjects);
+            // Also save the updated projects list
             saveProjectsToStorage();
         }
     }
@@ -126,7 +133,8 @@ export const projects = (() => {
     }
 
     function saveProjectsToStorage() {
-        Storage.saveProjects(projectsList);
+        const projectsToSave = projectsList.map(proj => proj.toJSON());
+        Storage.saveProjects(projectsToSave);
     }
 
   return {

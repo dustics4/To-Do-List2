@@ -74,10 +74,10 @@ const dom = (() => {
             defaultProject.tasksAppend("Sample Task 2", "Sample details 2", new Date(), "medium");
             projects.projectsList.push(defaultProject);
             Storage.saveProjects(projects.getProjectsList());
-        } else {
-            projects.projectsList = storedProjects;
-        }
-        displayProjects();       
+        } 
+        displayProjects();  
+        setActiveProjectFromStorage();
+        displayTasksForActiveProject();
     }
 
     function setActiveProjectFromStorage() {
@@ -98,14 +98,26 @@ const dom = (() => {
     //function to display the activeProject
     function displayActiveProject(projectTitle) {
         tasksDiv.innerHTML = "";
-        const project = projects.getProject(projectTitle);
+
+        const storedProjects = Storage.loadProjects() || [];
+        const projectData = storedProjects.find(project => project.title === projectTitle);
+        
+        if (projectData) {
+            console.log("Tasks retrieved from project:",  Storage.loadProjects());
+            projectData.tasks.forEach(task => {
+                const taskElement = createTaskElement(task.title, task.priority);
+                tasksDiv.appendChild(taskElement);
+            });
+        }
+
+        /*const project = projects.getProject(projectTitle);
         if (project) {
             console.log("Tasks retrieved from project:", project.getTasks() , Storage.loadProjects());
             project.getTasks().forEach(task => {
                 const taskElement = createTaskElement(task.title, task.priority);
                 tasksDiv.appendChild(taskElement);
             });
-        }
+        }*/
 
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
