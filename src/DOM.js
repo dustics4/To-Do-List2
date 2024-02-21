@@ -99,7 +99,7 @@ const dom = (() => {
     function displayActiveProject(projectTitle) {
         tasksDiv.innerHTML = "";
 
-        const storedProjects = Storage.loadProjects() || [];
+        /*const storedProjects = Storage.loadProjects() || [];
         const projectData = storedProjects.find(project => project.title === projectTitle);
         
         if (projectData) {
@@ -108,16 +108,16 @@ const dom = (() => {
                 const taskElement = createTaskElement(task.title, task.priority);
                 tasksDiv.appendChild(taskElement);
             });
-        }
+        }*/
 
-        /*const project = projects.getProject(projectTitle);
+        const project = projects.getProject(projectTitle);
         if (project) {
-            console.log("Tasks retrieved from project:", project.getTasks() , Storage.loadProjects());
+            console.log("Tasks retrieved from project:", project.getTasks(), Storage.loadProjects());
             project.getTasks().forEach(task => {
                 const taskElement = createTaskElement(task.title, task.priority);
                 tasksDiv.appendChild(taskElement);
             });
-        }*/
+        }
 
         //button to create new Tasks
         const createTaskButton = document.createElement("button");

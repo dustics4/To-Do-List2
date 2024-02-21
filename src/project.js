@@ -34,6 +34,10 @@ export const project = (title,id = generateUniqueId()) => {
     return tasks;
   }
 
+  function setTasks(value){
+    tasks = value;
+  }
+
   function getTask(title) {
       return tasks.find(task => task.title === title);
   }
@@ -65,6 +69,7 @@ export const project = (title,id = generateUniqueId()) => {
       getTask,
       isActive,
       setActive,
+      setTasks,
   }
 
 }
@@ -76,7 +81,7 @@ export const projects = (() => {
         const storedProjects = Storage.loadProjects() || [];
         projectsList = storedProjects.map(projectData => {
             const proj = project(projectData.title, projectData.id);
-            proj.tasks = projectData.tasks || [];
+            proj.setTasks(projectData.tasks);
             proj.setActive = projectData.setActive || (() => {});
             return proj;
         });
