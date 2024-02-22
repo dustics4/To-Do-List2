@@ -3,14 +3,6 @@ import { Storage } from "./storage";
 import { project } from "./project";
 import { generateUniqueId } from "./project";
 
-/*
-Notes for the next time we come back 
-"The issue is that methods are not stored in JSON. When your projects are stored in JSON, the only properties stored are the id and the title. The tasks are not stored because they're only obtain with a method getTasks! "
-"the localstorage logic would be vastly simplified by storing the projects and their tasks in a single key.
-Updating, adding or removing a project or task would simply require you to overwrite the existing key value in localStorage with the new data."
-"There's a way to easily solve this. We can implement a method called toJSON. This method, if present, is called by JSON.stringify and stringifies what toJSON returns instead of the value we pass."
-*/
-
 const dom = (() => {
 
     let activeProjectTitle = null;
