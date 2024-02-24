@@ -368,8 +368,6 @@ const dom = (() => {
 
     return {
     }
-    
-
 })();
 
 export default dom;
