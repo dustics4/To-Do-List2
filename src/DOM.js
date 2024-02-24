@@ -292,58 +292,76 @@ const dom = (() => {
         }
     }
 
+    function validateTaskSubmission(){
+        const titleInput = document.getElementById("task-name").value.trim();
+        const detailsInput = document.getElementById("description").value.trim();
+        const dateInput = document.getElementById("oldtaskDueDate").value.trim();
+        const priorityInput = document.getElementById("priority-type").value.trim();
+
+        if (!titleInput || !detailsInput || !dateInput || !priorityInput) {
+            alert("Please fill in all task fields.");
+            return false;
+        }
+        return true;
+    }
+
     //button which submits the tasks
-    buttonSubmitTask.addEventListener('click' , () => {
-        let title = document.getElementById('task-name').value;
-        const taskDialogBox = document.getElementById("main-task-dialog-box");
-        let details = document.getElementById('description').value; 
-        let date = document.getElementById('oldtaskDueDate').value; 
-        let priority = document.getElementById('priority-type').value; 
-        console.log("click");
-        if(activeProjectTitle){
-            addTaskToProject(activeProjectTitle, {title, details, date, priority});
-            projects.setActiveProject(activeProjectTitle);
-            createTask(title);
-            displayTasks();
-            taskDialogBox.close();
-            clearTaskInput();
-        }else{
-            console.log("no active project selected");
-        } 
+    buttonSubmitTask.addEventListener('click' , (e) => {
+        e.preventDefault();
+        if(validateTaskSubmission()){
+            let title = document.getElementById('task-name').value;
+            const taskDialogBox = document.getElementById("main-task-dialog-box");
+            let details = document.getElementById('description').value; 
+            let date = document.getElementById('oldtaskDueDate').value; 
+            let priority = document.getElementById('priority-type').value; 
+            console.log("click");
+            if(activeProjectTitle){
+                addTaskToProject(activeProjectTitle, {title, details, date, priority});
+                projects.setActiveProject(activeProjectTitle);
+                createTask(title);
+                displayTasks();
+                taskDialogBox.close();
+                clearTaskInput();
+            }else{
+                console.log("no active project selected");
+            } 
+        }
+        
     })
  /*************** TASKS AREA FINISH **********************************************/ 
-
-    const validatedField = false;
+    function validateProjectSubmission(){
+        const titleInput = document.getElementById("folder-name").value.trim();
+        if(!titleInput){
+            alert("Please enter the project title");
+            return false;
+        }
+        return true;
+    }
+    
     //when clicking the submit button run these functions
-    folderButtonSubmit.addEventListener('click', () =>{
-        let title =  document.getElementById("folder-name").value;
-        projects.projectsAppend(title);
-        projects.setActiveProject(title);
-        activeProjectTitle = title;
-        displayProjects();  
-        createProject(title);
-
-        folderDialogBox.close();
-        clearInput();
+    folderButtonSubmit.addEventListener('click', (e) =>{
+        e.preventDefault();
+        if(validateProjectSubmission()){
+            let title =  document.getElementById("folder-name").value;
+            projects.projectsAppend(title);
+            projects.setActiveProject(title);
+            activeProjectTitle = title;
+            displayProjects();  
+            createProject(title);
+            folderDialogBox.close();
+            clearFolderInput();
+        }
     })
 
-    //clears the input inside the dialog
-    function clearInput(){
-        const title = document.getElementById("folder-name");
-        
-        title.value = '';
+    function clearFolderInput(){
+        document.getElementById("folder-name").value = '';
     }
 
     function clearTaskInput(){
-        let taskTitle = document.getElementById('task-name');
-        let details = document.getElementById('description');
-        let date = document.getElementById('oldtaskDueDate');
-        let priority = document.getElementById('priority-type');
-
-        taskTitle.value = '';
-        details.value = '';
-        date.value = '';
-        priority.value = '';
+        document.getElementById('task-name').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('oldtaskDueDate').value = '';
+        document.getElementById('priority-type').value = '';
     }
 
     document.addEventListener("DOMContentLoaded", init);
