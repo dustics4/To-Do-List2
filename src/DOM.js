@@ -12,8 +12,6 @@ const dom = (() => {
     const tasksDiv = document.getElementById("to-do-bodi");
     const buttonSubmitTask = document.getElementById("buttonSubmit");
     /*************** PROJECT AREA START **********************************************/ 
-    //function to createProject , takes in the title of project
-
     function createProject(title){
             const newP = document.createElement('div');
             newP.classList.add('folder-title-area');
@@ -23,7 +21,7 @@ const dom = (() => {
             `
             return newP;
     }
-
+//Button action to remove folder
     projectsDiv.addEventListener("click", (e) => {
         const removeButton = e.target.closest(".trash-folder");
         if (removeButton) {
@@ -36,7 +34,7 @@ const dom = (() => {
             }
         }
     })
-
+//Button to click the project
     projectsDiv.addEventListener("click", (e) => {
         const targetProjectButton = e.target.closest(".project-btn");
         if (targetProjectButton) {
@@ -56,7 +54,7 @@ const dom = (() => {
             tasksDiv.appendChild(fragment); // Append all task elements at once
         }
     }
-
+//function to init/show example local storage
     function init() {
         const storedProjects = Storage.loadProjects() || [];
         if (!storedProjects || storedProjects.length === 0) {
@@ -79,8 +77,7 @@ const dom = (() => {
             displayActiveProject(activeProjectTitle);
         }
     }
-
-
+//Clear all local storage, button
     const clearAllButton = document.getElementById("clear-all-button");
     clearAllButton.addEventListener("click", () => {
         Storage.clearLocalStorage();
@@ -90,18 +87,6 @@ const dom = (() => {
     //function to display the activeProject
     function displayActiveProject(projectTitle) {
         tasksDiv.innerHTML = "";
-
-        /*const storedProjects = Storage.loadProjects() || [];
-        const projectData = storedProjects.find(project => project.title === projectTitle);
-        
-        if (projectData) {
-            console.log("Tasks retrieved from project:",  Storage.loadProjects());
-            projectData.tasks.forEach(task => {
-                const taskElement = createTaskElement(task.title, task.priority);
-                tasksDiv.appendChild(taskElement);
-            });
-        }*/
-
         const project = projects.getProject(projectTitle);
         if (project) {
             console.log("Tasks retrieved from project:", project.getTasks(), Storage.loadProjects());
@@ -110,7 +95,6 @@ const dom = (() => {
                 tasksDiv.appendChild(taskElement);
             });
         }
-
         //button to create new Tasks
         const createTaskButton = document.createElement("button");
         createTaskButton.classList.add("create-task-button");
@@ -126,9 +110,6 @@ const dom = (() => {
                 console.log("No active project selected");
             }
         });
-
-        
-        
     }
 
     //function to display each project created
@@ -140,9 +121,9 @@ const dom = (() => {
             projectsDiv.appendChild(projectElement);
         });
     }
+    /*************** PROJECT AREA FINISH **********************************************/ 
 
-  
-
+    /*************** TASKS AREA START **********************************************/ 
     function createTaskElement(title, priority) {
         const newT = document.createElement('div');
         newT.classList.add('card');
@@ -157,9 +138,7 @@ const dom = (() => {
         `;
         return newT;
     }
-    /*************** PROJECT AREA FINISH **********************************************/ 
 
-    /*************** TASKS AREA START **********************************************/ 
     function addTaskToProject(projectTitle, task){
         const project = projects.getProject(projectTitle);
         if (project) {
@@ -191,7 +170,7 @@ const dom = (() => {
         `
         return newT;
     }
-
+//button functionality for task buttons
     tasksDiv.addEventListener("click", (e) => {
         const targetTask = e.target.closest('.card');
         if(!targetTask) return;
@@ -204,13 +183,10 @@ const dom = (() => {
         } else if (e.target.classList.contains('task-remove')) {
             removeTask(taskTitle);
         }
-
-
     })
 
     function displayTaskInformation(taskTitle){
         const activeProject = projects.getActiveProject();
-
         if (!activeProject) {
             console.error("No active project found.");
             return;
@@ -314,10 +290,6 @@ const dom = (() => {
         } else {
             console.log("no active project"); // Log if there is no active project
         }
-            
-        
-
-        
     }
 
     //button which submits the tasks
