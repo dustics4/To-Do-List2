@@ -154,7 +154,7 @@
 }
 
 .card-buttons {
-  padding: 20px 20px;
+  padding: 5px 5px;
   justify-content:center;
   align-items: center;
 }
@@ -163,7 +163,6 @@
 button {
   border-radius: 5px;
   cursor: pointer;
-  padding: 10px 20px;
   border-style:solid;
 }
 
@@ -171,6 +170,11 @@ button:hover {
   background-color: #8e8e8e;
   border-color: #131313;
 
+}
+
+button i {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .trash-folder {
